@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>J&D | Tech Dictionary</title>
+    <style>
+        :root { --neon-blue: #33BBFF; --neon-green: #00FF88; --bg-dark: #0a0a0a; }
+        body { background-color: var(--bg-dark); color: white; font-family: 'Segoe UI', sans-serif; margin: 0; padding-top: 100px; text-align: center; }
+        nav { position: fixed; top: 0; width: 100%; background: rgba(10, 10, 10, 0.95); border-bottom: 1px solid var(--neon-blue); display: flex; justify-content: center; padding: 15px 0; }
+        nav a { color: white; text-decoration: none; margin: 0 15px; font-size: 0.8rem; font-weight: bold; text-transform: uppercase; }
+        #search { width: 80%; max-width: 500px; padding: 15px; background: #111; border: 2px solid var(--neon-blue); color: white; border-radius: 5px; margin-bottom: 30px; font-size: 1rem; }
+        .item { background: #161616; padding: 20px; margin: 10px auto; max-width: 600px; border-radius: 8px; border-left: 4px solid var(--neon-green); display: none; text-align: left; }
+        .item.active { display: block; }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="hardware.html">Hardware</a>
+        <a href="software.html">Software</a>
+        <a href="dictionary.html">Dictionary</a>
+        <a href="techy.html">Techy AI</a>
+    </nav>
+    <h1 style="color:var(--neon-blue)">TECH DICTIONARY</h1>
+    <input type="text" id="search" placeholder="Type a term (CPU, RAM, HTML...)" onkeyup="searchDict()">
+    <div id="list">
+        <div class="item" data-term="cpu"><strong>CPU:</strong> The Central Processing Unit. It's the "brain" of your computer.</div>
+        <div class="item" data-term="ram"><strong>RAM:</strong> Random Access Memory. Temporary storage that makes your PC fast.</div>
+        <div class="item" data-term="gpu"><strong>GPU:</strong> Graphics Processing Unit. Handles gaming and video rendering.</div>
+        <div class="item" data-term="html"><strong>HTML:</strong> HyperText Markup Language. The code Jett uses to build site skeletons.</div>
+        <div class="item" data-term="ssd"><strong>SSD:</strong> Solid State Drive. Much faster than old hard drives.</div>
+    </div>
+    <script>
+        function searchDict() {
+            let val = document.getElementById('search').value.toLowerCase();
+            let items = document.getElementsByClassName('item');
+            for (let i of items) {
+                i.classList.toggle('active', val && i.getAttribute('data-term').includes(val));
+            }
+        }
+    </script>
+</body>
+</html>
