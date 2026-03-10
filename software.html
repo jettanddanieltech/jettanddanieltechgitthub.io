@@ -7,7 +7,6 @@
     <style>
         :root {
             --neon-green: #00FF88;
-            --neon-blue: #33BBFF;
             --bg-dark: #0a0a0a;
             --card-bg: #161616;
         }
@@ -15,9 +14,10 @@
         body {
             background-color: var(--bg-dark);
             color: white;
-            font-family: 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Segoe UI', Arial, sans-serif;
             margin: 0;
-            line-height: 1.6;
+            padding-top: 100px;
+            text-align: center;
         }
 
         /* Navigation Bar */
@@ -31,19 +31,91 @@
             justify-content: center;
             padding: 15px 0;
             z-index: 1000;
-            backdrop-filter: blur(10px);
         }
 
         nav a {
             color: white;
             text-decoration: none;
-            margin: 0 20px;
+            margin: 0 15px;
             font-size: 0.8rem;
             font-weight: bold;
             text-transform: uppercase;
             letter-spacing: 2px;
-            transition: 0.3s;
         }
 
         nav a:hover {
-            color: var(--neon-green
+            color: var(--neon-green);
+            text-shadow: 0 0 8px var(--neon-green);
+        }
+
+        h1 {
+            color: var(--neon-green);
+            font-size: 3rem;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            text-shadow: 0 0 15px rgba(0, 255, 136, 0.4);
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 40px auto;
+            padding: 20px;
+            background: var(--card-bg);
+            border-radius: 15px;
+            border: 1px solid #333;
+            text-align: left;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            border-bottom: 1px solid #222;
+            padding-bottom: 10px;
+        }
+
+        li::before {
+            content: "CODE_ ";
+            color: var(--neon-green);
+            font-weight: bold;
+        }
+
+        .status-bar {
+            margin-top: 20px;
+            font-family: monospace;
+            color: #555;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="hardware.html">Hardware</a>
+        <a href="software.html">Software</a>
+        <a href="dictionary.html">Dictionary</a>
+        <a href="techy.html">Techy AI</a>
+    </nav>
+
+    <h1>Software Studio</h1>
+    <p style="color: #888;">Custom Web & App Solutions</p>
+
+    <div class="container">
+        <h2 style="color: white; border-bottom: 1px solid var(--neon-green); padding-bottom: 10px;">Our Services</h2>
+        <ul>
+            <li>Full-Stack Web Development</li>
+            <li>Responsive UI/UX Design</li>
+            <li>Custom SEO Strategy</li>
+            <li>GitHub Hosting & Deployment</li>
+            <li>Software Troubleshooting</li>
+        </ul>
+        <div class="status-bar">SYSTEM_STATUS: ONLINE // DEV: JETT</div>
+    </div>
+
+</body>
+</html>
