@@ -2,79 +2,59 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>J&D | TECH_DICTIONARY</title>
+    <title>J&D | DICTIONARY</title>
     <style>
         body { background:#000; color:#00FF88; font-family:monospace; padding:20px; display:flex; flex-direction:column; align-items:center; }
-        nav { width:100%; border-bottom:2px solid #33BBFF; padding:15px; text-align:center; margin-bottom:30px; }
-        nav a { color:#33BBFF; margin:0 15px; text-decoration:none; font-weight:bold; }
+        nav { width:100%; border-bottom:2px solid #33BBFF; padding:15px; text-align:center; background:#0a0a0a; margin-bottom:30px; }
+        nav a { color:#33BBFF; margin:0 15px; text-decoration:none; font-weight:bold; transition:0.3s; }
+        nav a:hover { color:#00FF88; text-shadow:0 0 8px #00FF88; }
+        .active { color:#00FF88 !important; border-bottom:2px solid #00FF88; padding-bottom:5px; }
         .container { border:1px solid #222; padding:20px; width:95%; max-width:800px; background:#050505; border-left:4px solid #33BBFF; }
         h1 { color:#33BBFF; }
-        input { width:100%; padding:12px; background:#111; border:1px solid #33BBFF; color:#00FF88; font-family:monospace; outline:none; margin-bottom:20px; }
+        input { width:100%; padding:15px; background:#111; border:1px solid #33BBFF; color:#00FF88; font-family:monospace; outline:none; margin-bottom:20px; box-sizing:border-box; }
+        #results { height:400px; overflow-y:auto; text-align:left; }
         .entry { margin-bottom:15px; padding:10px; border-bottom:1px solid #111; }
         .word { color:#33BBFF; font-weight:bold; text-transform:uppercase; }
-        .def { color:#00FF88; margin-top:5px; }
-        #results { height: 400px; overflow-y: auto; }
+        #results::-webkit-scrollbar { width:5px; }
+        #results::-webkit-scrollbar-thumb { background:#33BBFF; }
     </style>
 </head>
 <body>
-
     <nav>
-        <a href="./index.html">Home</a>
-        <a href="./hardware.html">Hardware</a>
-        <a href="./software.html">Software</a>
-        <a href="./techy.html">Techy AI</a>
+        <a href="./index.html">HOME</a>
+        <a href="./hardware.html">HARDWARE</a>
+        <a href="./software.html">SOFTWARE</a>
+        <a href="./dictionary.html" class="active">DICTIONARY</a>
+        <a href="./techy.html">TECHY AI</a>
     </nav>
-
     <div class="container">
-        <h1>SYSTEM_DICTIONARY_V2</h1>
-        <p style="color:#666">> Accessing global tech definitions...</p>
-        
-        <input type="text" id="search" placeholder="SEARCH TERM (e.g. RAM, CPU, IP)..." onkeyup="searchDict()">
-
-        <div id="results">
-            </div>
+        <h1>TECH_DATABASE_V3</h1>
+        <input type="text" id="search" placeholder="SEARCH TERM..." onkeyup="searchDict()">
+        <div id="results"></div>
     </div>
-
     <script>
         const techData = {
-            "ram": "Random Access Memory. High-speed temporary storage for the CPU.",
-            "cpu": "Central Processing Unit. The primary brain of the computer system.",
-            "gpu": "Graphics Processing Unit. Handles rendering and visual calculations.",
-            "ssd": "Solid State Drive. Fast, non-mechanical storage device.",
-            "hdd": "Hard Disk Drive. Traditional magnetic storage using spinning platters.",
-            "html": "HyperText Markup Language. The structural skeleton of web pages.",
-            "css": "Cascading Style Sheets. Design and layout language for the web.",
-            "js": "JavaScript. Programming language for website interactivity.",
-            "ip address": "Internet Protocol Address. A unique numerical label for devices on a network.",
-            "dns": "Domain Name System. Converts website names (google.com) into IP addresses.",
-            "bios": "Basic Input/Output System. The first software to run when a PC boots up.",
-            "kernel": "The core part of an operating system that manages hardware and tasks.",
-            "overclocking": "Pushing hardware past its factory speed limits for more performance.",
-            "api": "Application Programming Interface. Allows different software to talk to each other.",
-            "frontend": "The part of a website users see and interact with (HTML/CSS).",
-            "backend": "The 'server-side' of a website that handles data and logic.",
-            "sata": "Connection interface for hard drives and SSDs.",
-            "nvme": "Ultra-fast storage protocol for modern M.2 SSDs.",
-            "vram": "Video RAM. Memory dedicated to the graphics card."
+            "ram": "Random Access Memory. Fast temporary storage for current tasks.",
+            "cpu": "Central Processing Unit. The brain of the computer.",
+            "gpu": "Graphics Processing Unit. Handles images and gaming.",
+            "ssd": "Solid State Drive. Fast storage with no moving parts.",
+            "html": "HyperText Markup Language. The structure of web pages.",
+            "css": "Cascading Style Sheets. The design and layout of a site.",
+            "javascript": "Programming language for website interactivity.",
+            "ip address": "Unique ID for a device on the internet.",
+            "dns": "Turns website names into IP addresses.",
+            "api": "Rules for software to talk to other software."
         };
-
         function searchDict() {
             const query = document.getElementById('search').value.toLowerCase();
             const resultsDiv = document.getElementById('results');
             resultsDiv.innerHTML = "";
-
-            for (const [word, def] of Object.entries(techData)) {
-                if (word.includes(query) || query === "") {
-                    resultsDiv.innerHTML += `
-                        <div class="entry">
-                            <div class="word">> ${word}</div>
-                            <div class="def">${def}</div>
-                        </div>`;
+            Object.keys(techData).sort().forEach(word => {
+                if (word.includes(query)) {
+                    resultsDiv.innerHTML += `<div class="entry"><div class="word">> ${word}</div><div class="def">${techData[word]}</div></div>`;
                 }
-            }
+            });
         }
-
-        // Run once on load to show all words
         searchDict();
     </script>
 </body>
