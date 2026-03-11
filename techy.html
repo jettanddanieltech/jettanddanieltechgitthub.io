@@ -1,86 +1,41 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>J&D | TECHY AI</title>
     <style>
-        /* Using the exact same "Safe" styles as your Dictionary */
-        body { 
-            background-color: #000000 !important; 
-            color: #00FF88 !important; 
-            font-family: monospace; 
-            margin: 0; 
-            padding: 20px;
-            text-align: center;
-        }
-        nav { 
-            border-bottom: 2px solid #33BBFF; 
-            padding: 15px; 
-            margin-bottom: 30px; 
-        }
-        nav a { 
-            color: #33BBFF; 
-            text-decoration: none; 
-            margin: 0 10px; 
-            font-weight: bold;
-        }
-        #console { 
-            border: 1px solid #222; 
-            background: #050505; 
-            height: 300px; 
-            padding: 15px; 
-            overflow-y: auto; 
-            text-align: left;
-            margin: 0 auto 20px auto;
-            max-width: 600px;
-        }
-        .bot { color: #33BBFF; }
-        input { 
-            width: 90%; 
-            max-width: 600px;
-            background: #111; 
-            border: 1px solid #00FF88; 
-            color: #00FF88; 
-            padding: 12px; 
-            font-family: monospace;
-        }
+        body { background:#000; color:#00FF88; font-family:monospace; padding:20px; display:flex; flex-direction:column; align-items:center; }
+        nav { width:100%; border-bottom:2px solid #33BBFF; padding:15px; text-align:center; background:#0a0a0a; margin-bottom:30px; }
+        nav a { color:#33BBFF; margin:0 15px; text-decoration:none; font-weight:bold; transition:0.3s; }
+        nav a:hover { color:#00FF88; text-shadow:0 0 8px #00FF88; }
+        .active { color:#00FF88 !important; border-bottom:2px solid #00FF88; padding-bottom:5px; }
+        #console { border:1px solid #222; background:#050505; height:300px; padding:15px; overflow-y:auto; text-align:left; width:90%; max-width:600px; border-left:4px solid #33BBFF; }
+        .bot { color:#33BBFF; }
+        input { width:90%; max-width:600px; background:#111; border:1px solid #00FF88; color:#00FF88; padding:12px; font-family:monospace; margin-top:10px; }
     </style>
 </head>
 <body>
-
     <nav>
         <a href="./index.html">HOME</a>
         <a href="./hardware.html">HARDWARE</a>
         <a href="./software.html">SOFTWARE</a>
         <a href="./dictionary.html">DICTIONARY</a>
-        <a href="./techy.html">TECHY AI</a>
+        <a href="./techy.html" class="active">TECHY AI</a>
     </nav>
-
-    <h2 style="color:#33BBFF">TECHY_OS_v2.6</h2>
-
-    <div id="console">
-        <div class="bot">>> SYSTEM ONLINE. Ask about Jett or Daniel.</div>
-    </div>
-
-    <input type="text" id="userIn" placeholder="Type here..." onkeypress="if(event.key==='Enter') talk()">
-
+    <h1>TECHY_OS_v2.6</h1>
+    <div id="console"><div class="bot">>> SYSTEM ONLINE. Ask about Jett or Daniel.</div></div>
+    <input type="text" id="userIn" placeholder="Type command..." onkeypress="if(event.key==='Enter') talk()">
     <script>
         function talk() {
-            var box = document.getElementById('userIn');
-            var log = document.getElementById('console');
-            var val = box.value.toLowerCase();
+            var box = document.getElementById('userIn'), log = document.getElementById('console'), val = box.value.toLowerCase();
             if(!val) return;
-
             log.innerHTML += "<div>> " + box.value + "</div>";
-            
-            var reply = "I am still learning. Try asking about Jett, Daniel, or Services.";
-            
-            if(val.includes("jett")) reply = "Jett is the Software expert and Web Developer.";
-            if(val.includes("daniel")) reply = "Daniel is the Hardware lead and System Builder.";
-            if(val.includes("hi") || val.includes("hello")) reply = "System active. How can I help?";
-
-            setTimeout(function() {
-                log.innerHTML += "<div class='bot'>>> " + reply + "</div>";
-                log.scrollTop = log.scrollHeight;
+            var reply = "Command not recognized. Try 'Jett' or 'Daniel'.";
+            if(val.includes("jett")) reply = "Jett is the Software Lead and Web Developer.";
+            if(val.includes("daniel")) reply = "Daniel is the Hardware Lead and PC Builder.";
+            setTimeout(() => { 
+                log.innerHTML += "<div class='bot'>>> " + reply + "</div>"; 
+                log.scrollTop = log.scrollHeight; 
             }, 200);
             box.value = "";
         }
