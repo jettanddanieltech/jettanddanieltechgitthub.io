@@ -2,42 +2,81 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>J&D | Tech Dictionary</title>
+    <title>J&D | TECH_DICTIONARY</title>
     <style>
-        :root { --neon-blue: #33BBFF; --neon-green: #00FF88; --bg-dark: #0a0a0a; }
-        body { background-color: var(--bg-dark); color: white; font-family: 'Segoe UI', sans-serif; margin: 0; padding-top: 100px; text-align: center; }
-        nav { position: fixed; top: 0; width: 100%; background: rgba(10, 10, 10, 0.95); border-bottom: 1px solid var(--neon-blue); display: flex; justify-content: center; padding: 15px 0; }
-        nav a { color: white; text-decoration: none; margin: 0 15px; font-size: 0.8rem; font-weight: bold; text-transform: uppercase; }
-        #search { width: 80%; max-width: 500px; padding: 15px; background: #111; border: 2px solid var(--neon-blue); color: white; border-radius: 5px; margin-bottom: 30px; font-size: 1rem; }
-        .item { background: #161616; padding: 20px; margin: 10px auto; max-width: 600px; border-radius: 8px; border-left: 4px solid var(--neon-green); display: none; text-align: left; }
-        .item.active { display: block; }
+        body { background:#000; color:#00FF88; font-family:monospace; padding:20px; display:flex; flex-direction:column; align-items:center; }
+        nav { width:100%; border-bottom:2px solid #33BBFF; padding:15px; text-align:center; margin-bottom:30px; }
+        nav a { color:#33BBFF; margin:0 15px; text-decoration:none; font-weight:bold; }
+        .container { border:1px solid #222; padding:20px; width:95%; max-width:800px; background:#050505; border-left:4px solid #33BBFF; }
+        h1 { color:#33BBFF; }
+        input { width:100%; padding:12px; background:#111; border:1px solid #33BBFF; color:#00FF88; font-family:monospace; outline:none; margin-bottom:20px; }
+        .entry { margin-bottom:15px; padding:10px; border-bottom:1px solid #111; }
+        .word { color:#33BBFF; font-weight:bold; text-transform:uppercase; }
+        .def { color:#00FF88; margin-top:5px; }
+        #results { height: 400px; overflow-y: auto; }
     </style>
 </head>
 <body>
+
     <nav>
-        <a href="index.html">Home</a>
-        <a href="hardware.html">Hardware</a>
-        <a href="software.html">Software</a>
-        <a href="techy.html">Techy AI</a>
+        <a href="./index.html">HOME</a>
+        <a href="./hardware.html">HARDWARE</a>
+        <a href="./software.html">SOFTWARE</a>
+        <a href="./dictionary.html">DICTIONARY</a>
+        <a href="./techy.html">TECHY AI</a>
     </nav>
-    <h1 style="color:var(--neon-blue)">TECH DICTIONARY</h1>
-    <input type="text" id="search" placeholder="Type a term (CPU, RAM, HTML...)" onkeyup="searchDict()">
-    <div id="list">
-        <div class="item" data-term="cpu"><strong>CPU:</strong> The Central Processing Unit. It's the "brain" of your computer.</div>
-        <div class="item" data-term="ram"><strong>RAM:</strong> Random Access Memory. Temporary storage that makes your PC fast.</div>
-        <div class="item" data-term="gpu"><strong>GPU:</strong> Graphics Processing Unit. Handles gaming and video rendering.</div>
-        <div class="item" data-term="html"><strong>HTML:</strong> HyperText Markup Language. The code Jett uses to build site skeletons.</div>
-        <div class="item" data-term="ssd"><strong>SSD:</strong> Solid State Drive. Much faster than old hard drives.</div>
+
+    <div class="container">
+        <h1>SYSTEM_DICTIONARY_V2</h1>
+        <p style="color:#666">> Accessing global tech definitions...</p>
+        
+        <input type="text" id="search" placeholder="SEARCH TERM (e.g. RAM, CPU, IP)..." onkeyup="searchDict()">
+
+        <div id="results">
+            </div>
     </div>
+
     <script>
+        const techData = {
+            "ram": "Random Access Memory. High-speed temporary storage for the CPU.",
+            "cpu": "Central Processing Unit. The primary brain of the computer system.",
+            "gpu": "Graphics Processing Unit. Handles rendering and visual calculations.",
+            "ssd": "Solid State Drive. Fast, non-mechanical storage device.",
+            "hdd": "Hard Disk Drive. Traditional magnetic storage using spinning platters.",
+            "html": "HyperText Markup Language. The structural skeleton of web pages.",
+            "css": "Cascading Style Sheets. Design and layout language for the web.",
+            "js": "JavaScript. Programming language for website interactivity.",
+            "ip address": "Internet Protocol Address. A unique numerical label for devices on a network.",
+            "dns": "Domain Name System. Converts website names (google.com) into IP addresses.",
+            "bios": "Basic Input/Output System. The first software to run when a PC boots up.",
+            "kernel": "The core part of an operating system that manages hardware and tasks.",
+            "overclocking": "Pushing hardware past its factory speed limits for more performance.",
+            "api": "Application Programming Interface. Allows different software to talk to each other.",
+            "frontend": "The part of a website users see and interact with (HTML/CSS).",
+            "backend": "The 'server-side' of a website that handles data and logic.",
+            "sata": "Connection interface for hard drives and SSDs.",
+            "nvme": "Ultra-fast storage protocol for modern M.2 SSDs.",
+            "vram": "Video RAM. Memory dedicated to the graphics card."
+        };
+
         function searchDict() {
-            let val = document.getElementById('search').value.toLowerCase();
-            let items = document.getElementsByClassName('item');
-            for (let i of items) {
-                i.classList.toggle('active', val && i.getAttribute('data-term').includes(val));
+            const query = document.getElementById('search').value.toLowerCase();
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = "";
+
+            for (const [word, def] of Object.entries(techData)) {
+                if (word.includes(query) || query === "") {
+                    resultsDiv.innerHTML += `
+                        <div class="entry">
+                            <div class="word">> ${word}</div>
+                            <div class="def">${def}</div>
+                        </div>`;
+                }
             }
         }
+
+        // Run once on load to show all words
+        searchDict();
     </script>
 </body>
 </html>
