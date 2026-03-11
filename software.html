@@ -2,119 +2,30 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>J&D | Software Studio</title>
+    <title>J&D | SOFTWARE</title>
     <style>
-        :root {
-            --neon-green: #00FF88;
-            --bg-dark: #0a0a0a;
-            --card-bg: #161616;
-        }
-
-        body {
-            background-color: var(--bg-dark);
-            color: white;
-            font-family: 'Segoe UI', Arial, sans-serif;
-            margin: 0;
-            padding-top: 100px;
-            text-align: center;
-        }
-
-        /* Navigation Bar */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(10, 10, 10, 0.95);
-            border-bottom: 1px solid var(--neon-green);
-            display: flex;
-            justify-content: center;
-            padding: 15px 0;
-            z-index: 1000;
-        }
-
-        nav a {
-            color: white;
-            text-decoration: none;
-            margin: 0 15px;
-            font-size: 0.8rem;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        nav a:hover {
-            color: var(--neon-green);
-            text-shadow: 0 0 8px var(--neon-green);
-        }
-
-        h1 {
-            color: var(--neon-green);
-            font-size: 3rem;
-            text-transform: uppercase;
-            letter-spacing: 5px;
-            text-shadow: 0 0 15px rgba(0, 255, 136, 0.4);
-        }
-
-        .container {
-            max-width: 700px;
-            margin: 40px auto;
-            padding: 20px;
-            background: var(--card-bg);
-            border-radius: 15px;
-            border: 1px solid #333;
-            text-align: left;
-        }
-
-        ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        li {
-            margin-bottom: 15px;
-            font-size: 1.1rem;
-            border-bottom: 1px solid #222;
-            padding-bottom: 10px;
-        }
-
-        li::before {
-            content: "CODE_ ";
-            color: var(--neon-green);
-            font-weight: bold;
-        }
-
-        .status-bar {
-            margin-top: 20px;
-            font-family: monospace;
-            color: #555;
-            font-size: 0.8rem;
-        }
+        body { background:#000; color:#00FF88; font-family:monospace; padding:20px; display:flex; flex-direction:column; align-items:center; }
+        nav { width:100%; border-bottom:2px solid #33BBFF; padding:15px; text-align:center; background:#0a0a0a; margin-bottom:30px; }
+        nav a { color:#33BBFF; margin:0 15px; text-decoration:none; font-weight:bold; transition:0.3s; }
+        nav a:hover { color:#00FF88; text-shadow:0 0 8px #00FF88; }
+        .active { color:#00FF88 !important; border-bottom:2px solid #00FF88; padding-bottom:5px; }
+        .box { border:1px solid #222; padding:20px; width:90%; max-width:600px; background:#050505; border-left:4px solid #33BBFF; }
+        h1 { color:#33BBFF; }
     </style>
 </head>
 <body>
-
     <nav>
-        <a href="./index.html">Home</a>
-        <a href="./hardware.html">Hardware</a>
-        <a href="./dictionary.html">Dictionary</a>
-        <a href="./techy.html">Techy AI</a>
+        <a href="./index.html">HOME</a>
+        <a href="./hardware.html">HARDWARE</a>
+        <a href="./software.html" class="active">SOFTWARE</a>
+        <a href="./dictionary.html">DICTIONARY</a>
+        <a href="./techy.html">TECHY AI</a>
     </nav>
-
-    <h1>Software Studio</h1>
-    <p style="color: #888;">Custom Web & App Solutions</p>
-
-    <div class="container">
-        <h2 style="color: white; border-bottom: 1px solid var(--neon-green); padding-bottom: 10px;">Our Services</h2>
-        <ul>
-            <li>Full-Stack Web Development</li>
-            <li>Responsive UI/UX Design</li>
-            <li>Custom SEO Strategy</li>
-            <li>GitHub Hosting & Deployment</li>
-            <li>Software Troubleshooting</li>
-        </ul>
-        <div class="status-bar">SYSTEM_STATUS: ONLINE // DEV: JETT</div>
+    <div class="box">
+        <h1>SOFTWARE_DEV</h1>
+        <p>> LEAD: JETT</p>
+        <p>> SERVICES: WEB DESIGN, TERMINAL UI, JAVASCRIPT TOOLS.</p>
+        <p style="color:#888">> v2.6 Deployment Successful.</p>
     </div>
-
 </body>
 </html>
