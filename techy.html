@@ -7,18 +7,20 @@
     <style>
         :root { --neon-blue: #33BBFF; --neon-green: #00FF88; --bg-dark: #0a0a0a; }
         body { background-color: var(--bg-dark); color: white; font-family: 'Segoe UI', sans-serif; margin: 0; padding-top: 100px; text-align: center; }
-        nav { position: fixed; top: 0; width: 100%; background: rgba(10, 10, 10, 0.95); border-bottom: 1px solid var(--neon-blue); display: flex; justify-content: center; padding: 15px 0; }
+        nav { position: fixed; top: 0; width: 100%; background: rgba(10, 10, 10, 0.95); border-bottom: 1px solid var(--neon-blue); display: flex; justify-content: center; padding: 15px 0; z-index: 1000; }
         nav a { color: white; text-decoration: none; margin: 0 15px; font-size: 0.8rem; font-weight: bold; text-transform: uppercase; }
+        nav a:hover { color: var(--neon-blue); }
         
-        .chat-container { max-width: 600px; margin: 20px auto; background: #111; border: 1px solid var(--neon-green); border-radius: 10px; overflow: hidden; }
-        #chat-box { height: 300px; overflow-y: auto; padding: 20px; text-align: left; display: flex; flex-direction: column; gap: 10px; }
-        .msg { padding: 10px 15px; border-radius: 5px; max-width: 80%; line-height: 1.4; }
-        .user-msg { background: #222; align-self: flex-end; border-right: 3px solid var(--neon-blue); }
-        .ai-msg { background: #1a1a1a; align-self: flex-start; border-left: 3px solid var(--neon-green); color: var(--neon-green); font-family: monospace; }
+        .chat-container { max-width: 700px; margin: 20px auto; background: #111; border: 1px solid var(--neon-green); border-radius: 10px; overflow: hidden; box-shadow: 0 0 20px rgba(0, 255, 136, 0.2); }
+        #chat-box { height: 400px; overflow-y: auto; padding: 20px; text-align: left; display: flex; flex-direction: column; gap: 12px; scroll-behavior: smooth; }
+        .msg { padding: 12px 18px; border-radius: 8px; max-width: 85%; line-height: 1.5; font-size: 0.95rem; }
+        .user-msg { background: #222; align-self: flex-end; border-right: 4px solid var(--neon-blue); color: #eee; }
+        .ai-msg { background: #1a1a1a; align-self: flex-start; border-left: 4px solid var(--neon-green); color: var(--neon-green); font-family: 'Courier New', Courier, monospace; }
         
-        .input-area { display: flex; border-top: 1px solid #333; }
-        #user-input { flex: 1; padding: 15px; background: transparent; border: none; color: white; outline: none; }
-        #send-btn { padding: 15px 25px; background: var(--neon-green); color: black; font-weight: bold; border: none; cursor: pointer; }
+        .input-area { display: flex; border-top: 1px solid #333; background: #000; }
+        #user-input { flex: 1; padding: 18px; background: transparent; border: none; color: white; outline: none; font-size: 1rem; }
+        #send-btn { padding: 0 30px; background: var(--neon-green); color: black; font-weight: bold; border: none; cursor: pointer; text-transform: uppercase; transition: 0.3s; }
+        #send-btn:hover { background: white; }
     </style>
 </head>
 <body>
@@ -30,56 +32,81 @@
         <a href="techy.html">Techy AI</a>
     </nav>
 
-    <h1 style="color:var(--neon-green)">TECHY AI</h1>
-    <p>Ask me about J&D Tech, hardware, or software.</p>
+    <h1 style="color:var(--neon-green)">TECHY AI KNOWLEDGE BASE</h1>
+    <p style="opacity: 0.7;">Ask me about Jett, Daniel, Hardware services, Software projects, or Dictionary terms.</p>
 
     <div class="chat-container">
         <div id="chat-box">
-            <div class="msg ai-msg">SYSTEM READY. How can I help you navigate J&D Tech today?</div>
+            <div class="msg ai-msg">> SYSTEM INITIALIZED. I have indexed all site data. How can I assist you?</div>
         </div>
         <div class="input-area">
-            <input type="text" id="user-input" placeholder="Ask something..." onkeypress="if(event.key === 'Enter') sendMessage()">
+            <input type="text" id="user-input" placeholder="Type a question (e.g., 'What does Daniel do?' or 'What is RAM?')" onkeypress="if(event.key === 'Enter') sendMessage()">
             <button id="send-btn" onclick="sendMessage()">SEND</button>
         </div>
     </div>
 
     <script>
         const siteData = {
-            "jett": "Jett is our lead software developer. He handles web apps, Python automation, and UI/UX design.",
-            "daniel": "Daniel is our hardware expert. He runs the Hardware Lab, specializing in custom PC builds and repairs.",
-            "hardware": "We offer custom PC builds, deep cleaning, thermal paste service, and hardware diagnostics.",
-            "software": "Our studio builds custom web apps, handles database management, and provides coding solutions.",
-            "about": "J&D Tech is a futuristic hub for hardware repairs and custom software development.",
-            "contact": "You can reach us through our hardware or software service pages!",
-            "help": "I can tell you about Jett (Software), Daniel (Hardware), or define tech terms for you."
+            // Team & General
+            "jett": "Jett runs the Software Studio. He builds site skeletons (HTML), React apps, Python scripts, and handles UI/UX design.",
+            "daniel": "Daniel leads the Hardware Lab. He specializes in custom PC builds, thermal paste application, cleaning, and diagnostics.",
+            "j&d": "J&D Tech is the future! It's a dual-powerhouse of Daniel's Hardware Lab and Jett's Software Studio.",
+            "site": "This site showcases J&D Tech's services, including hardware builds, software development, and a tech dictionary.",
+            
+            // Hardware Services
+            "pc": "We build custom gaming and workstation PCs, upgrade parts, and perform deep cleanings.",
+            "cleaning": "Daniel offers deep cleaning and thermal paste re-application to keep your hardware cool and fast.",
+            "repair": "Hardware diagnostics and repairs are handled by Daniel in the Hardware Lab.",
+            "upgrade": "We can help you with part upgrades and professional installation for your current rig.",
+
+            // Software Services
+            "code": "Jett's Software Studio offers custom web apps, automation scripts, and API integrations.",
+            "html": "HTML (HyperText Markup Language) is what Jett uses to build the structure of websites like this one!",
+            "automation": "We use Python to create custom scripting and automation solutions for your workflow.",
+            "apps": "We develop modern web applications using tools like React and Next.js.",
+
+            // Dictionary Integration
+            "cpu": "CPU: The Central Processing Unit. It's the 'brain' of the computer that executes instructions.",
+            "ram": "RAM: Random Access Memory. Temporary storage that keeps your computer running fast while you work.",
+            "gpu": "GPU: Graphics Processing Unit. It handles all the heavy lifting for gaming and video rendering.",
+            "ssd": "SSD: Solid State Drive. A storage device that is significantly faster than traditional hard drives.",
+            "dictionary": "Our dictionary contains terms like CPU, RAM, GPU, SSD, and HTML. Just ask me to define one!"
         };
 
         function sendMessage() {
             const input = document.getElementById('user-input');
             const chatBox = document.getElementById('chat-box');
-            const query = input.value.toLowerCase();
+            const query = input.value.toLowerCase().trim();
             if (!query) return;
 
-            // Add user message
-            chatBox.innerHTML += `<div class="msg user-msg">${input.value}</div>`;
+            // Add User Message
+            const userDiv = document.createElement('div');
+            userDiv.className = 'msg user-msg';
+            userDiv.textContent = input.value;
+            chatBox.appendChild(userDiv);
             
-            // AI logic
-            let response = "I'm not sure about that specific detail. Try asking about 'Jett', 'Daniel', 'Hardware', or 'Software'!";
+            input.value = '';
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+            // AI Response Logic
+            let response = "I don't have that specific data in my current index. Try asking about Jett, Daniel, Hardware, Software, or a tech term like 'SSD'.";
             
+            // Check for keywords
             for (let key in siteData) {
                 if (query.includes(key)) {
                     response = siteData[key];
-                    break;
+                    break; 
                 }
             }
 
-            // Simulate "typing" delay
+            // Fake "Processing" delay
             setTimeout(() => {
-                chatBox.innerHTML += `<div class="msg ai-msg">> ${response}</div>`;
+                const aiDiv = document.createElement('div');
+                aiDiv.className = 'msg ai-msg';
+                aiDiv.textContent = "> " + response;
+                chatBox.appendChild(aiDiv);
                 chatBox.scrollTop = chatBox.scrollHeight;
-            }, 500);
-
-            input.value = '';
+            }, 600);
         }
     </script>
 </body>
