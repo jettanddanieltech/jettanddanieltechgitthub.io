@@ -3,40 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tutorials | Jett & Daniel Tech</title>
+    <title>TUTORIALS | JETT & DANIEL TECH</title>
     <style>
         :root {
             --neon-blue: #33BBFF;
-            --bg-dark: #0f0f0f;
-            --card-bg: #1a1a1a;
-            --text-main: #ffffff;
+            --terminal-green: #00FF41;
+            --bg-dark: #000000;
+            --card-bg: #0a0a0a;
+            --warning-red: #FF3333;
         }
 
         body {
             background-color: var(--bg-dark);
-            color: var(--text-main);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #ffffff;
+            font-family: 'Courier New', Courier, monospace;
             margin: 0;
-            padding-top: 70px;
+            padding-top: 100px;
         }
 
         nav {
             background: rgba(0, 0, 0, 0.9);
-            padding: 15px;
-            text-align: center;
+            padding: 20px;
             position: fixed;
             top: 0;
             width: 100%;
             border-bottom: 2px solid var(--neon-blue);
+            text-align: center;
             z-index: 1000;
         }
 
         nav a {
-            color: var(--text-main);
+            color: white;
             text-decoration: none;
             margin: 0 15px;
             font-weight: bold;
-            transition: 0.3s;
+            font-size: 0.9rem;
         }
 
         nav a:hover {
@@ -44,35 +45,141 @@
             text-shadow: 0 0 10px var(--neon-blue);
         }
 
-        header {
-            text-align: center;
-            padding: 40px 20px;
-        }
-
-        header h1 {
-            color: var(--neon-blue);
-            font-size: 3rem;
-            margin: 0;
-            text-transform: uppercase;
-        }
-
-        .tutorial-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            padding: 40px;
-            max-width: 1200px;
+        .container {
+            max-width: 900px;
             margin: auto;
+            padding: 20px;
+        }
+
+        h1 {
+            color: var(--neon-blue);
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: 40px;
         }
 
         .tutorial-card {
             background: var(--card-bg);
-            border: 1px solid #333;
-            border-radius: 12px;
-            overflow: hidden;
-            transition: transform 0.3s, border-color 0.3s;
-            display: flex;
-            flex-direction: column;
+            border-left: 4px solid var(--neon-blue);
+            padding: 25px;
+            margin-bottom: 40px;
+            box-shadow: 10px 10px 0px rgba(51, 187, 255, 0.05);
         }
 
-        .tutorial-card:hover {
+        .tutorial-card h2 {
+            color: var(--terminal-green);
+            margin-top: 0;
+            border-bottom: 1px solid #222;
+            padding-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .step {
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .step b {
+            color: var(--neon-blue);
+        }
+
+        .warning {
+            color: var(--warning-red);
+            font-weight: bold;
+            border: 1px dashed var(--warning-red);
+            padding: 10px;
+            margin-bottom: 15px;
+        }
+
+        .code-box {
+            background: #111;
+            padding: 10px;
+            border-radius: 5px;
+            color: var(--terminal-green);
+            display: block;
+            margin: 10px 0;
+            font-size: 0.9rem;
+            border: 1px solid #333;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px;
+            color: #444;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="index.html">HOME</a>
+        <a href="hardware.html">HARDWARE</a>
+        <a href="software.html">SOFTWARE</a>
+        <a href="tutorials.html">TUTORIALS</a>
+        <a href="dictionary.html">DICTIONARY</a>
+        <a href="techy.html">TECHY_AI</a>
+    </nav>
+
+    <div class="container">
+        <h1>DIRECTORY: /TUTORIALS</h1>
+
+        <div class="tutorial-card">
+            <h2>01. CRACKED SCREEN RECOVERY</h2>
+            <div class="warning">! WARNING: WEAR EYE PROTECTION WHEN HANDLING SHATTERED GLASS !</div>
+            <div class="step"><b>PROBLEM:</b> Display is cracked or touch is unresponsive.</div>
+            <div class="step"><b>FIX:</b> Tape the glass, heat the edges to soften adhesive, and use a thin pry tool to lift the panel. Disconnect ribbons before full removal.</div>
+        </div>
+
+        <div class="tutorial-card">
+            <h2>02. LAGGING PC CLEANUP</h2>
+            <div class="step"><b>PROBLEM:</b> High CPU usage and slow boot times.</div>
+            <div class="step"><b>FIX:</b> Clear <code class="code-box">%temp%</code>, disable startup apps in Task Manager, and run Disk Cleanup as Admin.</div>
+        </div>
+
+        <div class="tutorial-card">
+            <h2>03. GITHUB REPO RESET</h2>
+            <div class="step"><b>PROBLEM:</b> Broken 404 links or long folder URLs.</div>
+            <div class="step"><b>FIX:</b> Rename repo to <code class="code-box">jettanddanieltech</code> in Settings. Delete CNAME if no custom domain is active.</div>
+        </div>
+
+        <div class="tutorial-card">
+            <h2>04. RECOVERING "BRICKED" PHONES</h2>
+            <div class="step"><b>PROBLEM:</b> Phone stuck on boot logo.</div>
+            <div class="step"><b>FIX:</b> Perform a "Forced Restart" (Vol Up, Vol Down, then hold Power). If that fails, enter DFU mode via PC.</div>
+        </div>
+
+        <div class="tutorial-card">
+            <h2>05. CSS NEON GLOW EFFECT</h2>
+            <div class="step"><b>PROBLEM:</b> Design looks too plain.</div>
+            <div class="step"><b>FIX:</b> Use <code class="code-box">text-shadow: 0 0 10px #33BBFF;</code> to create the J&D signature glow.</div>
+        </div>
+
+        <div class="tutorial-card">
+            <h2>06. WATER DAMAGE FIRST AID</h2>
+            <div class="warning">! DO NOT PUT IT IN RICE - RICE IS A MYTH !</div>
+            <div class="step"><b>PROBLEM:</b> Device dropped in liquid.</div>
+            <div class="step"><b>FIX:</b> Power off immediately. Open the device and use 90% Isopropyl Alcohol to clean corrosion. Use a fan, not a hairdryer.</div>
+        </div>
+
+        <div class="tutorial-card">
+            <h2>07. CHARGING PORT RESCUE</h2>
+            <div class="step"><b>PROBLEM:</b> Cable won't stay in or phone charges "slowly."</div>
+            <div class="step"><b>FIX:</b> Use a wooden toothpick or plastic pick to gently scrape out pocket lint. Never use metal pins as they short the pins!</div>
+        </div>
+
+        <div class="tutorial-card">
+            <h2>08. THERMAL PASTE RE-APP</h2>
+            <div class="step"><b>PROBLEM:</b> Laptop or Desktop hitting 90&deg;C+ (Overheating).</div>
+            <div class="step"><b>FIX:</b> Remove the heatsink, clean old "crusty" paste with alcohol, and apply a pea-sized drop of new thermal compound.</div>
+        </div>
+
+    </div>
+
+    <footer>
+        &copy; 2026 JETT & DANIEL TECH | ALL_RIGHTS_RESERVED
+    </footer>
+
+</body>
+</html>
