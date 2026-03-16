@@ -2,130 +2,50 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TECHTORIALS // DICTIONARY</title>
+    <title>TECHTORIALS // TECH_DICT</title>
     <style>
-        :root {
-            --bg: #000000;
-            --blue: #33BBFF;
-            --green: #00FF41;
-            --dark-blue: #0055FF;
-            --text: #ffffff;
-        }
-
-        body {
-            background-color: var(--bg);
-            color: var(--text);
-            font-family: 'Courier New', monospace;
-            margin: 0;
-            padding: 40px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 40px;
-            border-bottom: 2px solid var(--blue);
-            padding-bottom: 20px;
-            width: 100%;
-            max-width: 800px;
-        }
-
-        h1 {
-            color: var(--blue);
-            font-size: 2.5rem;
-            letter-spacing: 5px;
-            margin: 0;
-            transform: skewX(-10deg);
-        }
-
-        #searchBar {
-            width: 100%;
-            max-width: 600px;
-            padding: 15px;
-            background: #111;
-            border: 1px solid var(--blue);
-            color: var(--green);
-            font-family: 'Courier New', monospace;
-            font-size: 1.2rem;
-            margin-bottom: 30px;
-            outline: none;
-        }
-
-        #searchBar:focus {
-            box-shadow: 0 0 15px var(--blue);
-        }
-
-        .dict-container {
-            width: 100%;
-            max-width: 800px;
-        }
-
-        .term-card {
-            background: #050505;
-            border-left: 4px solid var(--blue);
-            margin-bottom: 15px;
-            padding: 20px;
-            transition: 0.3s;
-        }
-
-        .term-card:hover {
-            background: #0a0a0a;
-            border-left: 4px solid var(--green);
-        }
-
-        .term-title {
-            color: var(--blue);
-            font-weight: bold;
-            font-size: 1.3rem;
-            margin-bottom: 10px;
-            display: block;
-        }
-
-        .term-def {
-            color: #ccc;
-            line-height: 1.6;
-        }
-
-        .nav-home {
-            margin-top: 50px;
-            color: var(--green);
-            text-decoration: none;
-            border: 1px solid var(--green);
-            padding: 10px 20px;
-        }
-
-        .nav-home:hover {
-            background: var(--green);
-            color: black;
-        }
+        body { background: #000; color: #ccc; font-family: 'Courier New', monospace; padding: 40px; }
+        .header { border-bottom: 2px solid #00FF41; padding-bottom: 10px; margin-bottom: 30px; }
+        .search { width: 100%; padding: 12px; background: #111; border: 1px solid #00FF41; color: #00FF41; margin-bottom: 20px; outline: none; }
+        .card { background: #080808; border-left: 3px solid #00FF41; padding: 15px; margin-bottom: 10px; }
+        .title { color: #00FF41; font-weight: bold; display: block; margin-bottom: 5px; }
+        .nav { color: #00FF41; text-decoration: none; font-size: 12px; border: 1px solid #00FF41; padding: 5px; }
     </style>
 </head>
 <body>
-
-    <div class="header">
-        <h1>DICTIONARY_DATABASE</h1>
-        <p style="color: var(--green)">> SEARCHING_AUTHORIZED...</p>
-    </div>
-
-    <input type="text" id="searchBar" placeholder="Type a term to search..." onkeyup="filterDict()">
-
-    <div class="dict-container" id="dictList">
-        <div class="term-card">
-            <span class="term-title">BIOS</span>
-            <span class="term-def">Basic Input/Output System. The firmware used to perform hardware initialization during the booting process.</span>
+    <a href="/" class="nav">SYSTEM_EXIT</a>
+    <div class="header"><h1 style="color:#00FF41">TECH_HARDWARE_DICTIONARY</h1></div>
+    <input type="text" class="search" id="tSearch" placeholder="SEARCH_HARDWARE..." onkeyup="filterTech()">
+    
+    <div id="tList">
+        <div class="card"><span class="title">ARM_ARCHITECTURE</span>A type of CPU architecture known for energy efficiency, used in smartphones and M-series Macs.</div>
+        <div class="card"><span class="title">BITRATE</span>The amount of data processed over time in a video or audio file; higher means better quality.</div>
+        <div class="card"><span class="title">CLOCK_SPEED</span>The speed at which a microprocessor executes instructions, measured in Gigahertz (GHz).</div>
+        <div class="card"><span class="title">DDR5</span>The latest generation of Double Data Rate RAM, providing higher speeds and efficiency.</div>
+        <div class="card"><span class="title">ETHERNET</span>The standard technology for connecting devices in a wired local area network (LAN).</div>
+        <div class="card"><span class="title">FIRMWARE</span>Permanent software programmed into a read-only memory of a hardware device.</div>
+        <div class="card"><span class="title">GPU</span>Graphics Processing Unit. A specialized circuit designed to accelerate image creation and AI tasks.</div>
+        <div class="card"><span class="title">HOT_SWAPPABLE</span>The ability to replace components (like hard drives) without shutting down the system.</div>
+        <div class="card"><span class="title">IP_ADDRESS</span>A unique string of numbers separated by periods that identifies each computer using the Internet Protocol.</div>
+        <div class="card"><span class="title">JSON</span>JavaScript Object Notation. A lightweight data-interchange format easy for humans to read/write.</div>
+        <div class="card"><span class="title">KERNEL</span>The core of an operating system that manages operations of computer and hardware.</div>
+        <div class="card"><span class="title">LAN_PARTY</span>A gathering of people with computers between which they establish a local area network for gaming.</div>
+        <div class="card"><span class="title">MOTHERBOARD</span>The main printed circuit board (PCB) in general-purpose computers.</div>
+        <div class="card"><span class="title">NVMe</span>Non-Volatile Memory Express. A protocol for accessing high-speed storage media like SSDs.</div>
+        <div class="card"><span class="title">OVERCLOCKING</span>Increasing the clock rate of a component to exceed the manufacturer's specified speed.</div>
+        <div class="card"><span class="title">PENTESTING</span>Penetration Testing. The practice of testing a computer system to find security vulnerabilities.</div>
+        <div class="card"><span class="title">RAID</span>Redundant Array of Independent Disks. Combining multiple disk drives for data redundancy or speed.</div>
+        <div class="card"><span class="title">SATA</span>Serial AT Attachment. An interface used to connect SSDs and HDDs to the motherboard.</div>
+        <div class="card"><span class="title">UEFI</span>Unified Extensible Firmware Interface. A modern replacement for the legacy BIOS.</div>
+        <div class="card"><span class="title">VRAM</span>Video RAM. Dedicated memory used by the GPU to store image data and textures.</div>
         </div>
 
-        <div class="term-card">
-            <span class="term-title">CMOS BATTERY</span>
-            <span class="term-def">A small battery on the motherboard that powers the BIOS memory, keeping settings like the date and time saved.</span>
-        </div>
-
-        <div class="term-card">
-            <span class="term-title">ESD (ELECTROSTATIC DISCHARGE)</span>
-            <span class="term-def">The sudden flow of electricity between two charged objects. Can destroy sensitive tech components instantly.</span>
-        </div>
-
-        <div class="term
+    <script>
+        function filterTech() {
+            let val = document.getElementById('tSearch').value.toLowerCase();
+            let cards = document.getElementsByClassName('card');
+            for (let c of cards) { c.style.display = c.innerText.toLowerCase().includes(val) ? "" : "none"; }
+        }
+    </script>
+</body>
+</html>
