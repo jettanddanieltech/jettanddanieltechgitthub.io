@@ -2,49 +2,50 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>TECHTORIALS // TECH_DICTIONARY</title>
+    <title>TECHTORIALS // DICTIONARY</title>
     <style>
-        body { background: #000; color: #ccc; font-family: 'Courier New', monospace; padding: 40px; }
-        .header { border-bottom: 2px solid #00FF41; padding-bottom: 10px; margin-bottom: 30px; }
-        .search { width: 100%; padding: 12px; background: #111; border: 1px solid #00FF41; color: #00FF41; margin-bottom: 20px; outline: none; }
-        .card { background: #080808; border-left: 3px solid #00FF41; padding: 15px; margin-bottom: 10px; }
-        .title { color: #00FF41; font-weight: bold; display: block; margin-bottom: 5px; }
-        .nav { color: #00FF41; text-decoration: none; font-size: 12px; border: 1px solid #00FF41; padding: 5px; }
+        :root { --bg: #000; --blue: #33BBFF; --green: #00FF41; }
+        body { background: var(--bg); color: #ccc; font-family: 'Courier New', monospace; margin: 0; }
+        .container { padding: 40px; max-width: 900px; margin: 0 auto; }
+        .search { width: 100%; padding: 15px; background: #111; border: 1px solid var(--green); color: var(--green); font-family: inherit; margin-bottom: 30px; outline: none; }
+        .term-card { border-left: 3px solid var(--blue); padding: 15px; margin-bottom: 15px; background: #050505; }
+        .term-title { color: var(--blue); font-weight: bold; display: block; margin-bottom: 5px; }
     </style>
 </head>
 <body>
-    <a href="/" class="nav">SYSTEM_EXIT</a>
-    <div class="header"><h1 style="color:#00FF41">TECH_HARDWARE_DICTIONARY</h1></div>
-    <input type="text" class="search" id="tSearch" placeholder="SEARCH_HARDWARE..." onkeyup="filterTech()">
-    
-    <div id="tList">
-        <div class="card"><span class="title">ARM_ARCHITECTURE</span>A type of CPU architecture known for energy efficiency, used in smartphones and M-series Macs.</div>
-        <div class="card"><span class="title">BITRATE</span>The amount of data processed over time in a video or audio file; higher means better quality.</div>
-        <div class="card"><span class="title">CLOCK_SPEED</span>The speed at which a microprocessor executes instructions, measured in Gigahertz (GHz).</div>
-        <div class="card"><span class="title">DDR5</span>The latest generation of Double Data Rate RAM, providing higher speeds and efficiency.</div>
-        <div class="card"><span class="title">ETHERNET</span>The standard technology for connecting devices in a wired local area network (LAN).</div>
-        <div class="card"><span class="title">FIRMWARE</span>Permanent software programmed into a read-only memory of a hardware device.</div>
-        <div class="card"><span class="title">GPU</span>Graphics Processing Unit. A specialized circuit designed to accelerate image creation and AI tasks.</div>
-        <div class="card"><span class="title">HOT_SWAPPABLE</span>The ability to replace components (like hard drives) without shutting down the system.</div>
-        <div class="card"><span class="title">IP_ADDRESS</span>A unique string of numbers separated by periods that identifies each computer using the Internet Protocol.</div>
-        <div class="card"><span class="title">JSON</span>JavaScript Object Notation. A lightweight data-interchange format easy for humans to read/write.</div>
-        <div class="card"><span class="title">KERNEL</span>The core of an operating system that manages operations of computer and hardware.</div>
-        <div class="card"><span class="title">LAN_PARTY</span>A gathering of people with computers between which they establish a local area network for gaming.</div>
-        <div class="card"><span class="title">MOTHERBOARD</span>The main printed circuit board (PCB) in general-purpose computers.</div>
-        <div class="card"><span class="title">NVMe</span>Non-Volatile Memory Express. A protocol for accessing high-speed storage media like SSDs.</div>
-        <div class="card"><span class="title">OVERCLOCKING</span>Increasing the clock rate of a component to exceed the manufacturer's specified speed.</div>
-        <div class="card"><span class="title">PENTESTING</span>Penetration Testing. The practice of testing a computer system to find security vulnerabilities.</div>
-        <div class="card"><span class="title">RAID</span>Redundant Array of Independent Disks. Combining multiple disk drives for data redundancy or speed.</div>
-        <div class="card"><span class="title">SATA</span>Serial AT Attachment. An interface used to connect SSDs and HDDs to the motherboard.</div>
-        <div class="card"><span class="title">UEFI</span>Unified Extensible Firmware Interface. A modern replacement for the legacy BIOS.</div>
-        <div class="card"><span class="title">VRAM</span>Video RAM. Dedicated memory used by the GPU to store image data and textures.</div>
+    <div style="background: #050505; border-bottom: 1px solid #33BBFF; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center;">
+        <a href="/" style="color: #33BBFF; text-decoration: none; font-weight: bold; letter-spacing: 2px;">[ TECHTORIALS_CORE ]</a>
+        <div style="display: flex; gap: 20px;">
+            <a href="/tutorials" style="color: #eee; text-decoration: none; font-size: 12px;">REPAIRS</a>
+            <a href="/software" style="color: #eee; text-decoration: none; font-size: 12px;">SOFTWARE</a>
+            <a href="/techy" style="color: #eee; text-decoration: none; font-size: 12px;">AI</a>
+            <a href="/dictionary" style="color: #33BBFF; text-decoration: none; font-size: 12px; border-bottom: 1px solid var(--blue);">DICT</a>
         </div>
+    </div>
+
+    <div class="container">
+        <h1 style="color:var(--green)">TECH_DICTIONARY_v2.0</h1>
+        <input type="text" id="dictSearch" class="search" placeholder="FILTER_DATABASE..." onkeyup="searchDict()">
+        
+        <div id="dictList">
+            <div class="term-card"><span class="term-title">BIOS</span>Basic Input/Output System. Firmware used to initialize hardware during booting.</div>
+            <div class="term-card"><span class="term-title">CMOS</span>Complementary Metal-Oxide-Semiconductor. A small battery-powered chip that stores BIOS settings.</div>
+            <div class="term-card"><span class="term-title">ESD</span>Electrostatic Discharge. The sudden flow of electricity that can fry circuits.</div>
+            <div class="term-card"><span class="term-title">FIRMWARE</span>Software permanently programmed into a hardware device's memory.</div>
+            <div class="term-card"><span class="term-title">GPU</span>Graphics Processing Unit. Specialized circuit for image and video processing.</div>
+            <div class="term-card"><span class="term-title">HEATSINK</span>Component that disperses heat from a processor to keep it cool.</div>
+            <div class="term-card"><span class="term-title">PENTALOBE</span>A 5-point star-shaped screw system used primarily in modern smartphones.</div>
+            <div class="term-card"><span class="term-title">SPUDGER</span>An anti-static tool used for prying and poking sensitive electronics.</div>
+        </div>
+    </div>
 
     <script>
-        function filterTech() {
-            let val = document.getElementById('tSearch').value.toLowerCase();
-            let cards = document.getElementsByClassName('card');
-            for (let c of cards) { c.style.display = c.innerText.toLowerCase().includes(val) ? "" : "none"; }
+        function searchDict() {
+            let input = document.getElementById('dictSearch').value.toLowerCase();
+            let cards = document.getElementsByClassName('term-card');
+            for (let card of cards) {
+                card.style.display = card.innerText.toLowerCase().includes(input) ? "block" : "none";
+            }
         }
     </script>
 </body>
