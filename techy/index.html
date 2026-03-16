@@ -2,51 +2,60 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>TECHTORIALS // AI_DATABASE</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THE_TECH_INDEX // AI_DATABASE</title>
     <style>
-        body { background: #000; color: #00FF41; font-family: 'Courier New', monospace; padding: 40px; line-height: 1.6; }
-        .header { color: #33BBFF; border-bottom: 2px solid #33BBFF; margin-bottom: 20px; transform: skewX(-10deg); }
-        .search { width: 100%; padding: 10px; background: #050505; border: 1px solid #33BBFF; color: #33BBFF; margin-bottom: 30px; font-family: inherit; }
-        .entry { margin-bottom: 15px; border-bottom: 1px solid #111; padding-bottom: 10px; }
-        .term { color: #33BBFF; font-weight: bold; }
-        .category { font-size: 10px; color: #555; margin-left: 10px; }
-        .nav { color: #33BBFF; text-decoration: none; font-size: 12px; }
+        :root { --bg: #000; --blue: #33BBFF; --green: #00FF41; --gray: #111; }
+        body { background: var(--bg); color: #ccc; font-family: 'Courier New', monospace; margin: 0; }
+        
+        /* Global Navigation */
+        .nav-header { background: #050505; border-bottom: 1px solid var(--blue); padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; }
+        .nav-header a { color: #eee; text-decoration: none; font-size: 12px; letter-spacing: 1px; }
+        .nav-header .active { color: var(--blue); border-bottom: 1px solid var(--blue); }
+
+        .container { padding: 40px; max-width: 1000px; margin: 0 auto; }
+        .header-section { border-bottom: 1px solid var(--blue); margin-bottom: 30px; padding-bottom: 20px; }
+        h1 { color: var(--blue); margin: 0; font-size: 24px; letter-spacing: 5px; }
+
+        .search-box { width: 100%; padding: 20px; background: #080808; border: 1px solid var(--green); color: var(--green); font-family: inherit; font-size: 16px; margin-bottom: 40px; outline: none; box-sizing: border-box; }
+        
+        .entry-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 15px; }
+        .ai-card { background: var(--gray); border: 1px solid #222; padding: 15px; transition: 0.2s; }
+        .ai-card:hover { border-color: var(--blue); background: #1a1a1a; }
+        .term { color: var(--blue); font-weight: bold; display: block; margin-bottom: 5px; font-size: 14px; }
+        .def { font-size: 12px; color: #aaa; line-height: 1.4; }
+        
+        .counter { color: var(--green); font-size: 12px; margin-bottom: 10px; }
     </style>
 </head>
 <body>
-    <a href="/" class="nav">< RETURN_TO_CORE</a>
-    <div class="header"><h1>AI_TERMINOLOGY_V2.0</h1></div>
-    <input type="text" class="search" id="aiSearch" placeholder="FILTER_AI_MODELS..." onkeyup="filterAI()">
-    
-    <div id="aiContainer">
-        <div class="entry"><span class="term">AGI</span>: Artificial General Intelligence. AI that can perform any intellectual task a human can.<span class="category">[LEVEL_5]</span></div>
-        <div class="entry"><span class="term">BACKPROPAGATION</span>: The primary algorithm for training neural networks by calculating gradients.<span class="category">[NEURAL]</span></div>
-        <div class="entry"><span class="term">CHIPLET</span>: Small integrated circuits that make up a larger processor, vital for AI hardware scalability.</div>
-        <div class="entry"><span class="term">DEEP_LEARNING</span>: A subset of ML based on artificial neural networks with multiple layers.</div>
-        <div class="entry"><span class="term">ENCODER</span>: A component that converts input data into a hidden representation (latent space).</div>
-        <div class="entry"><span class="term">FINE_TUNING</span>: Taking a pre-trained model and training it further on a specific dataset.</div>
-        <div class="entry"><span class="term">GAN (GENERATIVE ADVERSARIAL NETWORK)</span>: Two neural networks competing to create realistic data (images/video).</div>
-        <div class="entry"><span class="term">HALLUCINATION</span>: When an AI generates confident but false or illogical information.</div>
-        <div class="entry"><span class="term">INFERENCE</span>: The process of a trained AI model making predictions on new data.</div>
-        <div class="entry"><span class="term">JUPYTER_NOTEBOOK</span>: An open-source web app used to create and share documents containing live AI code.</div>
-        <div class="entry"><span class="term">K-NEAREST_NEIGHBORS</span>: A simple ML algorithm used for classification and regression.</div>
-        <div class="entry"><span class="term">LATENT_SPACE</span>: A compressed representation of data where similar items are mapped closer together.</div>
-        <div class="entry"><span class="term">MLOps</span>: A set of practices that aims to deploy and maintain machine learning models in production reliably.</div>
-        <div class="entry"><span class="term">NLP</span>: Natural Language Processing. Helping computers understand and interpret human language.</div>
-        <div class="entry"><span class="term">OVERFITTING</span>: When a model learns training data too well, failing to generalize to new data.</div>
-        <div class="entry"><span class="term">PARAMETER</span>: A variable in an AI model that is learned from the data during training.</div>
-        <div class="entry"><span class="term">QUANTIZATION</span>: Reducing the precision of AI model weights to make them run faster on hardware.</div>
-        <div class="entry"><span class="term">REINFORCEMENT_LEARNING</span>: Training AI through a system of rewards and punishments.</div>
-        <div class="entry"><span class="term">TRANSFORMER</span>: The architecture behind GPT models that uses "attention" to process sequences.</div>
-        <div class="entry"><span class="term">ZERO-SHOT_LEARNING</span>: An AI's ability to complete a task it wasn't specifically trained for.</div>
+
+    <div class="nav-header">
+        <a href="/" style="font-weight:bold; color:var(--blue)">[ THE_TECH_INDEX ]</a>
+        <div style="display:flex; gap:20px;">
+            <a href="/tutorials">TECHTORIALS</a>
+            <a href="/software">SOFTWARE</a>
+            <a href="/techy" class="active">AI_DB</a>
+            <a href="/dictionary">DICT</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="header-section">
+            <h1>AI_NEURAL_ARCHIVE</h1>
+            <p style="color:#555;">SCANNING_DATABASE_FOR_TERMINOLOGY...</p>
         </div>
 
-    <script>
-        function filterAI() {
-            let val = document.getElementById('aiSearch').value.toLowerCase();
-            let items = document.getElementsByClassName('entry');
-            for (let i of items) { i.style.display = i.innerText.toLowerCase().includes(val) ? "" : "none"; }
-        }
-    </script>
-</body>
-</html>
+        <div class="counter" id="resultCount">ENTRIES_DETECTED: 200+</div>
+        <input type="text" id="aiSearch" class="search-box" placeholder="START_QUERY_INITIALIZATION..." onkeyup="filterDB()">
+
+        <div class="entry-grid" id="aiGrid">
+            <div class="ai-card"><span class="term">AGI</span><span class="def">Artificial General Intelligence: AI that can perform any intellectual task a human can.</span></div>
+            <div class="ai-card"><span class="term">ALGORITHM</span><span class="def">A set of rules or instructions given to an AI to help it learn on its own.</span></div>
+            <div class="ai-card"><span class="term">ALIGNMENT</span><span class="def">The task of ensuring AI goals match human values and safety standards.</span></div>
+            <div class="ai-card"><span class="term">ANTHROPOMORPHISM</span><span class="def">Attributing human-like qualities or emotions to an AI system.</span></div>
+            <div class="ai-card"><span class="term">ATTENTION_MECHANISM</span><span class="def">Part of a neural network that allows it to focus on specific parts of input data.</span></div>
+            <div class="ai-card"><span class="term">AUTONOMOUS_AGENT</span><span class="def">AI designed to achieve goals without constant human intervention.</span></div>
+            
+            <div class="ai-card"><span class="term">BACKPROPAGATION</span><span class="def">Method used to train neural networks by calculating errors and adjusting weights.</span></div>
+            <div class="ai-card"><span class="term">BARD</span><span class="def">Original
