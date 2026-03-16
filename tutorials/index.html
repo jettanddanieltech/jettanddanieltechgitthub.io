@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TECHTORIALS // REPAIR_DATABASE</title>
+    <style>
+        :root {
+            --bg: #000;
+            --blue: #33BBFF;
+            --green: #00FF41;
+            --gray: #0a0a0a;
+        }
+
+        body {
+            background: var(--bg);
+            color: #ccc;
+            font-family: 'Courier New', monospace;
+            margin: 0;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Side Info Bar */
+        .status-bar {
+            width: 220px;
+            background: #050505;
+            border-right: 1px solid var(--blue);
+            padding: 20px;
+            font-size: 11px;
+            color: var(--blue);
+            flex-shrink: 0;
+        }
+
+        .main-content {
+            flex-grow: 1;
+            padding: 40px;
+            overflow-y: auto;
+        }
+
+        .header {
+            border-bottom: 2px solid var(--blue);
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+        }
+
+        h1 { color: var(--blue); margin: 0; letter-spacing: 4px; transform: skewX(-10deg); }
+
+        /* Tutorial Grid */
+        .tutorial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 50px;
+        }
+
+        .protocol-card {
+            background: var(--gray);
+            border: 1px solid #111;
+            padding: 20px;
+            position: relative;
+            transition: 0.3s ease;
+        }
+
+        .protocol-card:hover {
+            border-color: var(--green);
+            background: #0d0d0d;
+        }
+
+        .id-tag {
+            font-size: 10px;
+            color: var(--green);
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .protocol-card h3 {
+            color: #fff;
+            margin: 0 0 10px 0;
+            font-size: 1.1rem;
+        }
+
+        .difficulty {
+            font-size: 10px;
+            color: var(--blue);
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .btn-open {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 8px 12px;
+            border: 1px solid var(--blue);
+            color: var(--blue);
+            text-decoration: none;
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        .btn-open:hover {
+            background: var(--blue);
+            color: #000;
+        }
+
+        .nav-back {
+            position: absolute;
+            top: 40px;
+            right: 40px;
+            color: var(--blue);
+            text-decoration: none;
+            font-size: 12px;
+            border: 1px solid var(--blue);
+            padding: 5px 15px;
+        }
+
+        @media (max-width: 800px) {
+            body { flex-direction: column; }
+            .status-bar { width: 100%; border-right: none; border-bottom: 1px solid var(--blue); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="status-bar">
+        <p>> HARDWARE_OS_v4.2</p>
+        <p>> STATUS: <span style="color:var(--green)">CONNECTED</span></p>
+        <p>> ACCESS_LVL: ADMIN</p>
+        <hr style="border:0; border-top:1px solid #222; margin: 20px 0;">
+        <p style="color:#555">ACTIVE_REPAIR_LOGS:</p>
+        <ul style="list-style:none; padding:0; color:var(--green); font-size:10px;">
+            <li>- PHN_BATT_01</li>
+            <li>- PHN_SCRN_02</li>
+            <li>- PC_THERM_03</li>
+            <li>- LPT_RAM_04</li>
+            <li>- PHN_CHRG_05</li>
+            <li>- PC_GPU_06</li>
+            <li>- CONS_JOY_07</li>
+            <li>- LPT_SSD_08</li>
+        </ul>
+    </div>
+
+    <div class="main-content">
+        <a href="/" class="nav-back">ESC_TO_CORE</a>
+        
+        <div class="header">
+            <h1>REPAIR_PROTOCOLS</h1>
+            <p style="color:var(--green)">> TOTAL_TUTORIALS_LOADED: 08</p>
+        </div>
+
+        <div class="tutorial-grid">
+            <div class="protocol-card">
+                <span class="id-tag">REF: PHN-BATT-01</span>
+                <h3>BATTERY_REPLACEMENT</h3>
+                <div class="difficulty">[MEDIUM_RISK]</div>
+                <p style="font-size: 12px;">Protocol for handling Li-ion thermal risks and adhesive removal.</p>
+                <a href="/tutorials/battery" class="btn-open">ACCESS_FILES</a>
+            </div>
+
+            <div class="protocol-card">
+                <span class="id-tag">REF: PHN-SCRN-02</span>
+                <h3>DIGITIZER_SWAP</h3>
+                <div class="difficulty">[HIGH_PRECISION]</div>
+                <p style="font-size: 12px;">Full OLED/LCD replacement including sensor transfers.</p>
+                <a href="/tutorials/screen" class="btn-open">ACCESS_FILES</a>
+            </div>
