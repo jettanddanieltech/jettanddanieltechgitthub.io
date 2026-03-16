@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TECHTORIALS // AI_DATABASE</title>
+    <style>
+        body { background: #000; color: #00FF41; font-family: 'Courier New', monospace; padding: 40px; line-height: 1.6; }
+        .header { color: #33BBFF; border-bottom: 2px solid #33BBFF; margin-bottom: 20px; transform: skewX(-10deg); }
+        .search { width: 100%; padding: 10px; background: #050505; border: 1px solid #33BBFF; color: #33BBFF; margin-bottom: 30px; font-family: inherit; }
+        .entry { margin-bottom: 15px; border-bottom: 1px solid #111; padding-bottom: 10px; }
+        .term { color: #33BBFF; font-weight: bold; }
+        .category { font-size: 10px; color: #555; margin-left: 10px; }
+        .nav { color: #33BBFF; text-decoration: none; font-size: 12px; }
+    </style>
+</head>
+<body>
+    <a href="/" class="nav">< RETURN_TO_CORE</a>
+    <div class="header"><h1>AI_TERMINOLOGY_V2.0</h1></div>
+    <input type="text" class="search" id="aiSearch" placeholder="FILTER_AI_MODELS..." onkeyup="filterAI()">
+    
+    <div id="aiContainer">
+        <div class="entry"><span class="term">AGI</span>: Artificial General Intelligence. AI that can perform any intellectual task a human can.<span class="category">[LEVEL_5]</span></div>
+        <div class="entry"><span class="term">BACKPROPAGATION</span>: The primary algorithm for training neural networks by calculating gradients.<span class="category">[NEURAL]</span></div>
+        <div class="entry"><span class="term">CHIPLET</span>: Small integrated circuits that make up a larger processor, vital for AI hardware scalability.</div>
+        <div class="entry"><span class="term">DEEP_LEARNING</span>: A subset of ML based on artificial neural networks with multiple layers.</div>
+        <div class="entry"><span class="term">ENCODER</span>: A component that converts input data into a hidden representation (latent space).</div>
+        <div class="entry"><span class="term">FINE_TUNING</span>: Taking a pre-trained model and training it further on a specific dataset.</div>
+        <div class="entry"><span class="term">GAN (GENERATIVE ADVERSARIAL NETWORK)</span>: Two neural networks competing to create realistic data (images/video).</div>
+        <div class="entry"><span class="term">HALLUCINATION</span>: When an AI generates confident but false or illogical information.</div>
+        <div class="entry"><span class="term">INFERENCE</span>: The process of a trained AI model making predictions on new data.</div>
+        <div class="entry"><span class="term">JUPYTER_NOTEBOOK</span>: An open-source web app used to create and share documents containing live AI code.</div>
+        <div class="entry"><span class="term">K-NEAREST_NEIGHBORS</span>: A simple ML algorithm used for classification and regression.</div>
+        <div class="entry"><span class="term">LATENT_SPACE</span>: A compressed representation of data where similar items are mapped closer together.</div>
+        <div class="entry"><span class="term">MLOps</span>: A set of practices that aims to deploy and maintain machine learning models in production reliably.</div>
+        <div class="entry"><span class="term">NLP</span>: Natural Language Processing. Helping computers understand and interpret human language.</div>
+        <div class="entry"><span class="term">OVERFITTING</span>: When a model learns training data too well, failing to generalize to new data.</div>
+        <div class="entry"><span class="term">PARAMETER</span>: A variable in an AI model that is learned from the data during training.</div>
+        <div class="entry"><span class="term">QUANTIZATION</span>: Reducing the precision of AI model weights to make them run faster on hardware.</div>
+        <div class="entry"><span class="term">REINFORCEMENT_LEARNING</span>: Training AI through a system of rewards and punishments.</div>
+        <div class="entry"><span class="term">TRANSFORMER</span>: The architecture behind GPT models that uses "attention" to process sequences.</div>
+        <div class="entry"><span class="term">ZERO-SHOT_LEARNING</span>: An AI's ability to complete a task it wasn't specifically trained for.</div>
+        </div>
+
+    <script>
+        function filterAI() {
+            let val = document.getElementById('aiSearch').value.toLowerCase();
+            let items = document.getElementsByClassName('entry');
+            for (let i of items) { i.style.display = i.innerText.toLowerCase().includes(val) ? "" : "none"; }
+        }
+    </script>
+</body>
+</html>
