@@ -1,32 +1,183 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<style>
-    body { background: #000; color: #007FFF; font-family: 'Courier New', monospace; padding: 50px; }
-    h1 { color: #007FFF; border-bottom: 2px solid #007FFF; padding-bottom: 10px; text-transform: uppercase; text-shadow: 0 0 10px #007FFF; }
-    .tutorial-card { border: 1px solid #004488; padding: 20px; background: #050505; max-width: 600px; box-shadow: inset 0 0 15px #002244; }
-    .step { color: #007FFF; font-weight: bold; text-shadow: 0 0 5px #007FFF; }
-    .nav { color: #007FFF; text-decoration: none; display: block; margin-bottom: 20px; }
-    h3 { color: #007FFF; text-shadow: 0 0 8px #007FFF; }
-    p { margin: 10px 0; color: #007FFF; }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TECH_CORE_REPAIR_OS</title> <!-- Added Title -->
+    <style>
+        :root {
+            --blue: #007FFF; /* Electric Blue */
+            --bg: #000000;
+            --card-bg: #050505;
+            --border: #004488;
+        }
+
+        body { 
+            background: var(--bg); 
+            color: var(--blue); 
+            font-family: 'Courier New', monospace; 
+            margin: 0; 
+            padding: 0; 
+            text-shadow: 0 0 8px rgba(0, 127, 255, 0.6);
+        }
+
+        /* Nav Header - Matched to Image */
+        .nav-header { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            padding: 20px 50px; 
+            border-bottom: 1px solid var(--border);
+            background: var(--card-bg);
+        }
+
+        .nav-header a { 
+            color: var(--blue); 
+            text-decoration: none; 
+            text-transform: uppercase;
+            font-size: 14px;
+        }
+
+        .nav-header .active { 
+            font-weight: bold;
+            text-decoration: underline; 
+            text-underline-offset: 5px;
+        }
+
+        .container { 
+            padding: 50px; 
+        }
+
+        h1 { 
+            font-size: 1.8em; 
+            margin-bottom: 30px; 
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-left: 4px solid var(--blue);
+            padding-left: 15px;
+        }
+
+        /* Manifest Card */
+        .tutorial-card { 
+            border: 1px solid var(--border); 
+            padding: 35px; 
+            background: var(--card-bg); 
+            max-width: 800px;
+            box-shadow: inset 0 0 20px #002244;
+        }
+
+        h3 { 
+            margin-top: 0; 
+            color: var(--blue);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 10px;
+        }
+
+        .manifest-list {
+            margin-top: 20px;
+            font-size: 1.05em;
+        }
+
+        .unit-row {
+            margin: 15px 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .unit-id {
+            font-weight: bold;
+            margin-right: 15px;
+            min-width: 90px;
+        }
+
+        .unit-text {
+            letter-spacing: 0.5px;
+        }
+
+        .tag { 
+            font-size: 10px; 
+            color: var(--blue); 
+            border: 1px solid var(--blue); 
+            padding: 2px 5px; 
+            margin-left: 15px;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+    </style>
 </head>
 <body>
 
-    <a href="/" class="nav">< RETURN_TO_CORE</a>
-    <h1>HARDWARE_REPAIR_PROTOCOLS</h1>
+    <div class="nav-header">
+        <a href="/" style="font-weight:bold; color:var(--blue)">[ TECH_CORE_REPAIR ]</a>
+        <div style="display:flex; gap:20px;">
+            <a href="/repairs" class="active">REPAIRS</a>
+            <a href="/software">SOFTWARE</a>
+            <a href="/techy">AI_DATABASE</a>
+            <a href="/dictionary">DICTIONARY</a>
+        </div>
+    </div>
 
-    <div class="tutorial-card">
-        <h3>SYSTEM_CAPABILITIES_MANIFEST</h3>
-        <p>WE_CAN_DO:</p>
-        <p><span class="step">UNIT_01:</span> SMARTPHONE_BATTERY_REPLACEMENT</p>
-        <p><span class="step">UNIT_02:</span> LCD_DIGITIZER_GLASS_SWAP</p>
-        <p><span class="step">UNIT_03:</span> USB-C_PORT_PIN_REFLOW</p>
-        <p><span class="step">UNIT_04:</span> NVMe_M2_STORAGE_UPGRADE</p>
-        <p><span class="step">UNIT_05:</span> CPU_THERMAL_PASTE_RE-APPLICATION</p>
-        <p><span class="step">UNIT_06:</span> MULTIMETER_POWER_RAIL_DIAGNOSTICS</p>
-        <p><span class="step">UNIT_07:</span> MECHANICAL_MOUSE_SWITCH_REPLACEMENT</p>
-        <p><span class="step">UNIT_08:</span> BIOS_EEPROM_FIRMWARE_FLASH</p>
+    <div class="container">
+        <h1>PROJECT_REPOSITORY</h1>
+
+        <div class="tutorial-card">
+            <h3>SYSTEM_CAPABILITIES_MANIFEST</h3>
+            
+            <div class="manifest-list">
+                <p style="font-weight: bold; margin-bottom: 25px;">WE_CAN_DO: .........</p>
+
+                <div class="unit-row">
+                    <span class="unit-id">UNIT_01:</span> 
+                    <span class="unit-text">SMARTPHONE_BATTERY_REPLACEMENT</span>
+                    <span class="tag">HARDWARE</span>
+                </div>
+
+                <div class="unit-row">
+                    <span class="unit-id">UNIT_02:</span> 
+                    <span class="unit-text">LCD_DIGITIZER_GLASS_SWAP</span>
+                    <span class="tag">HARDWARE</span>
+                </div>
+
+                <div class="unit-row">
+                    <span class="unit-id">UNIT_03:</span> 
+                    <span class="unit-text">USB-C_PORT_PIN_REFLOW</span>
+                    <span class="tag">SOLDER</span>
+                </div>
+
+                <div class="unit-row">
+                    <span class="unit-id">UNIT_04:</span> 
+                    <span class="unit-text">NVMe_M2_STORAGE_UPGRADE</span>
+                    <span class="tag">HARDWARE</span>
+                </div>
+
+                <div class="unit-row">
+                    <span class="unit-id">UNIT_05:</span> 
+                    <span class="unit-text">CPU_THERMAL_PASTE_RE-APPLICATION</span>
+                    <span class="tag">MAINTENANCE</span>
+                </div>
+
+                <div class="unit-row">
+                    <span class="unit-id">UNIT_06:</span> 
+                    <span class="unit-text">MULTIMETER_POWER_RAIL_DIAGNOSTICS</span>
+                    <span class="tag">LOGIC</span>
+                </div>
+
+                <div class="unit-row">
+                    <span class="unit-id">UNIT_07:</span> 
+                    <span class="unit-text">MECHANICAL_MOUSE_SWITCH_REPLACEMENT</span>
+                    <span class="tag">SOLDER</span>
+                </div>
+
+                <div class="unit-row">
+                    <span class="unit-id">UNIT_08:</span> 
+                    <span class="unit-text">BIOS_EEPROM_FIRMWARE_FLASH</span>
+                    <span class="tag">FIRMWARE</span>
+                </div>
+            </div>
+        </div>
     </div>
 
 </body>
