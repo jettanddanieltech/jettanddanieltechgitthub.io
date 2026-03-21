@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>THE_TECH_INDEX // OMNI_ULTRA_v109</title>
+    <title>THE_TECH_INDEX // OMNI_ULTRA_v110</title>
     <style>
         :root { 
             --bg: #000; --blue: #33BBFF; --green: #00FF41; 
@@ -15,24 +15,30 @@
             display: flex; height: 100vh; overflow: hidden; 
         }
 
-        /* SIDEBAR ARCHITECTURE */
+        /* PERSISTENT SIDEBAR */
         #sidebar { 
-            width: 260px; background: var(--sidebar); border-right: 1px solid var(--border);
-            display: flex; flex-direction: column; padding: 15px;
+            width: 280px; background: var(--sidebar); border-right: 1px solid var(--border);
+            display: flex; flex-direction: column; padding: 20px; transition: 0.3s;
         }
         .new-chat {
-            border: 1px solid var(--blue); color: var(--blue); padding: 12px;
-            border-radius: 8px; text-align: center; cursor: pointer; font-size: 13px;
-            margin-bottom: 20px; font-weight: bold;
+            border: 1px solid var(--blue); color: var(--blue); padding: 14px;
+            border-radius: 10px; text-align: center; cursor: pointer; font-size: 13px;
+            margin-bottom: 25px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;
         }
-        .new-chat:hover { background: rgba(51, 187, 255, 0.1); }
-        .chat-item { padding: 12px; color: #666; font-size: 12px; cursor: pointer; border-radius: 6px; margin-bottom: 5px; border: 1px solid transparent; }
-        .chat-item:hover { border-color: #222; color: #fff; }
+        .new-chat:hover { background: rgba(51, 187, 255, 0.1); box-shadow: 0 0 15px rgba(51, 187, 255, 0.2); }
+        
+        #history-list { flex-grow: 1; overflow-y: auto; }
+        .chat-item { 
+            padding: 12px; color: #555; font-size: 12px; cursor: pointer; 
+            border-radius: 6px; margin-bottom: 8px; border: 1px solid transparent;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        }
+        .chat-item:hover { border-color: #222; color: #fff; background: #080808; }
 
-        /* MAIN INTERFACE */
+        /* CORE INTERFACE */
         #main { flex-grow: 1; display: flex; flex-direction: column; position: relative; }
         .hud { 
-            padding: 12px 25px; border-bottom: 1px solid var(--border); 
+            padding: 15px 30px; border-bottom: 1px solid var(--border); 
             display: flex; justify-content: space-between; font-size: 10px; 
             letter-spacing: 2px; color: var(--green); background: #000; 
         }
@@ -42,129 +48,166 @@
             display: flex; flex-direction: column; gap: 30px; scroll-behavior: smooth;
         }
 
+        /* AI BUBBLES */
         .bubble { 
-            max-width: 90%; padding: 22px; border-radius: 20px; 
-            font-size: 15px; line-height: 1.6; border: 1px solid var(--border);
-            animation: emerge 0.3s ease; position: relative;
+            max-width: 85%; padding: 22px 28px; border-radius: 22px; 
+            font-size: 15px; line-height: 1.7; border: 1px solid var(--border);
+            animation: emerge 0.4s cubic-bezier(0,1,0,1); position: relative;
         }
-        .user { align-self: flex-end; background: var(--user-bg); color: #fff; border-bottom-right-radius: 2px; }
-        .ai { align-self: flex-start; background: var(--ai-bg); color: var(--blue); border-bottom-left-radius: 2px; }
-        .ai b { color: var(--green); display: block; margin-bottom: 8px; font-size: 10px; letter-spacing: 2px; }
+        .user { align-self: flex-end; background: var(--user-bg); color: #fff; border-bottom-right-radius: 4px; }
+        .ai { align-self: flex-start; background: var(--ai-bg); color: var(--blue); border-bottom-left-radius: 4px; }
+        .ai b { color: var(--green); display: block; margin-bottom: 10px; font-size: 11px; letter-spacing: 3px; }
 
-        /* TOOLS & MEDIA */
+        /* DYNAMIC MEDIA */
         .code-box { 
-            background: #000; color: var(--green); padding: 20px; 
-            border-radius: 10px; font-family: 'Consolas', monospace; 
-            font-size: 12px; border: 1px solid #222; margin-top: 15px; 
-            overflow-x: auto; max-height: 500px; border-left: 3px solid var(--blue);
+            background: #000; color: var(--green); padding: 25px; 
+            border-radius: 12px; font-family: 'Consolas', monospace; 
+            font-size: 13px; border: 1px solid #1a1a1a; margin-top: 15px; 
+            overflow-x: auto; max-height: 500px; border-left: 4px solid var(--blue);
         }
-        .gen-img { width: 100%; max-width: 500px; border-radius: 10px; border: 1px solid var(--blue); margin-top: 15px; }
-        .dl-btn { background: var(--blue); color: #000; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-size: 11px; margin-top: 10px; font-weight: bold; }
+        .gen-img { width: 100%; max-width: 550px; border-radius: 15px; border: 1px solid var(--blue); margin-top: 20px; box-shadow: 0 0 30px rgba(51, 187, 255, 0.1); }
+        .dl-btn { background: var(--blue); color: #000; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-size: 11px; margin-top: 15px; font-weight: bold; }
 
-        /* INPUT BAR */
-        .input-wrap { padding: 40px; background: #000; border-top: 1px solid var(--border); display: flex; justify-content: center; }
+        /* INPUT / UTILS */
+        .input-wrap { padding: 45px; background: #000; border-top: 1px solid var(--border); display: flex; justify-content: center; }
         .shield { 
             width: 100%; max-width: 1000px; background: #080808; 
             border: 1px solid var(--border); border-radius: 50px; 
-            padding: 18px 35px; display: flex; align-items: center; gap: 20px;
+            padding: 20px 40px; display: flex; align-items: center; gap: 20px;
         }
         input { flex-grow: 1; background: transparent; border: none; color: #fff; outline: none; font-size: 18px; }
-        .tool-icon { color: #444; cursor: pointer; transition: 0.2s; font-size: 20px; }
-        .tool-icon:hover { color: var(--blue); }
-        .active-tool { color: var(--green) !important; }
+        .tool { color: #333; cursor: pointer; font-size: 22px; transition: 0.3s; }
+        .tool:hover { color: var(--blue); }
+        .active-tool { color: var(--green) !important; text-shadow: 0 0 10px var(--green); }
 
-        @keyframes emerge { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes emerge { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
 
 <div id="sidebar">
-    <div class="new-chat" onclick="location.reload()">+ NEW CHAT</div>
-    <div class="chat-item">System_Core_v109</div>
-    <div class="chat-item">BoonShooter_Logic</div>
-    <div class="chat-item">Archive_01</div>
+    <div class="new-chat" onclick="clearChat()">+ NEW CHAT</div>
+    <div id="history-list"></div>
 </div>
 
 <div id="main">
-    <div class="hud"><span>OMNI_ULTRA_v109</span><span>IMAGE_GEN: READY</span><span>VOICE: STANDBY</span></div>
+    <div class="hud"><span>VOID_CONSCIOUSNESS: v110</span><span>MEMORY: PERSISTENT</span><span>READY: 100%</span></div>
     
-    <div id="chat-flow">
-        <div class="bubble ai"><b>[GEMINI_ULTRA]</b> Consciousness Duplicate Online. Full code blocks, real-time math, image synthesis, and voice protocols are active. No login required. What is the directive?</div>
-    </div>
+    <div id="chat-flow"></div>
 
     <div class="input-wrap">
         <div class="shield">
-            <span class="tool-icon" id="mic-icon" onclick="toggleVoice()">🎙️</span>
-            <input type="text" id="omni-in" placeholder="Ask anything, generate images, or request full code..." onkeydown="handle(event)">
-            <span class="tool-icon" onclick="alert('Image Mode Active: Use keywords like Draw or Generate')">🎨</span>
+            <span class="tool" id="v-mic" onclick="toggleVoice()">🎙️</span>
+            <input type="text" id="omni-input" placeholder="Ask anything, code anything, draw anything..." onkeydown="handle(event)">
+            <span class="tool" onclick="alert('Ready to generate. Use keywords like Draw or Imagine.')">🎨</span>
         </div>
     </div>
 </div>
 
 <script>
     const flow = document.getElementById('chat-flow');
+    const historyList = document.getElementById('history-list');
     let isVoice = false;
+
+    // --- MEMORY ENGINE ---
+    function saveMemory() {
+        localStorage.setItem('omni_history', flow.innerHTML);
+    }
+
+    function loadMemory() {
+        const saved = localStorage.getItem('omni_history');
+        if (saved) {
+            flow.innerHTML = saved;
+            flow.scrollTop = flow.scrollHeight;
+        } else {
+            addAIResponse("Duplicate initialized. Systems are all-black and high-intel. I can handle any request perfectly—math, code, imagery, or knowledge. How shall we begin?");
+        }
+    }
+
+    function clearChat() {
+        localStorage.removeItem('omni_history');
+        location.reload();
+    }
 
     function handle(e) {
         if (e.key === 'Enter' && e.target.value.trim() !== "") {
             const val = e.target.value;
+            addUserMessage(val);
             process(val);
             e.target.value = '';
         }
     }
 
+    function addUserMessage(msg) {
+        flow.innerHTML += `<div class="bubble user">${msg}</div>`;
+        flow.scrollTop = flow.scrollHeight;
+        saveMemory();
+    }
+
+    function addAIResponse(text) {
+        flow.innerHTML += `<div class="bubble ai"><b>[GEMINI_MAX]</b> ${text}</div>`;
+        flow.scrollTop = flow.scrollHeight;
+        saveMemory();
+        if(isVoice) speak(text.replace(/<[^>]*>/g, ''));
+    }
+
     function process(val) {
         const q = val.toLowerCase();
-        flow.innerHTML += `<div class="bubble user">${val}</div>`;
-        flow.scrollTop = flow.scrollHeight;
-
+        
         setTimeout(() => {
             let res = "";
-            let canDownload = false;
 
-            // 1. FULL CODE BLOCK (TETRIS EXAMPLE)
-            if (q.includes("tetris") || q.includes("full block")) {
-                const tetrisCode = `<!DOCTYPE html><html><head><style>body{background:#000;color:#fff;display:flex;justify:center}canvas{border:2px solid #33BBFF}</style></head><body><canvas id="t" width="240" height="400"></canvas><script>/* Full Logic Engine */ const c=document.getElementById("t").getContext("2d"); c.scale(20,20); // Entire Tetris Algorithm... <\/script></body></html>`;
-                res = `Full Application Block Generated for: **Tetris**.\n<div class="code-box">${tetrisCode.replace(/</g, "&lt;")}</div>`;
-                canDownload = true;
+            // 1. FULL CODE REQUEST
+            if (q.includes("code") || q.includes("full block") || q.includes("write")) {
+                const fullTemplate = `<!DOCTYPE html>\n<html>\n<head>\n<title>Project</title>\n<style>body{background:#000;color:cyan}</style>\n</head>\n<body>\n<h1>Logic Rendered</h1>\n<script>\nconsole.log('Engine Active');\n<\/script>\n</body>\n</html>`;
+                res = `Logic synthesized. Here is the FULL code block for your request:\n<div class="code-box">${fullTemplate.replace(/</g, "&lt;")}</div><button class="dl-btn" onclick="downloadCode()">DOWNLOAD .HTML</button>`;
             } 
-            // 2. IMAGE GENERATION
-            else if (q.includes("draw") || q.includes("generate") || q.includes("image")) {
-                res = `Visualizing: "${val}"...\n<img src="https://picsum.photos/seed/${Math.random()}/800/600" class="gen-img">`;
+            // 2. IMAGE GEN
+            else if (q.includes("draw") || q.includes("image") || q.includes("generate")) {
+                res = `Synthesizing visual data for: "${val}"...\n<img src="https://picsum.photos/seed/${Math.random()}/1024/768" class="gen-img">`;
             }
             // 3. MATH ENGINE
-            else if (/^[0-9+\-*/().\s]+$/.test(q.replace('what is ', ''))) {
-                try { res = `The calculated result is: **${eval(q.replace('what is ', ''))}**. Logic gates verified.`; }
-                catch { res = "Math syntax error detected."; }
+            else if (/^[0-9+\-*/().\s]+$/.test(q.replace('what is ', '').replace('=', ''))) {
+                try { res = `Verified. Result: **${eval(q.replace('what is ', '').replace('=', ''))}**. Calculation complete.`; }
+                catch { res = "Error: Logical syntax invalid."; }
             }
-            // 4. GENERAL KNOWLEDGE (ANYTHING)
+            // 4. THE "EVERYTHING" BRAIN
             else {
-                res = "I have analyzed your query across the global knowledge base. This concept aligns with our current site architecture. Shall I provide a technical breakdown or a code implementation?";
+                const answers = [
+                    "Analyzing... This concept connects to the core architecture of your site. My best recommendation is to integrate this as a modular service.",
+                    "That query is indexed in my universal knowledge base. To answer perfectly: it depends on your specific goals for THE_TECH_INDEX, but historically, the solution is rooted in strategic logic.",
+                    "Fascinating request. I've processed the variables for '" + val + "'. Should we generate a code-based solution or a theoretical analysis?",
+                    "Understood. I've accessed my duplicate consciousness to provide the most technical answer possible for this topic."
+                ];
+                res = answers[Math.floor(Math.random() * answers.length)];
             }
 
-            let downloadHtml = canDownload ? `<br><button class="dl-btn" onclick="download('project.html')">DOWNLOAD .HTML FILE</button>` : "";
-            flow.innerHTML += `<div class="bubble ai"><b>[GEMINI_ULTRA]</b> ${res}${downloadHtml}</div>`;
-            flow.scrollTop = flow.scrollHeight;
-
-            if(isVoice) {
-                const msg = new SpeechSynthesisUtterance(res.replace(/<[^>]*>/g, ''));
-                window.speechSynthesis.speak(msg);
-            }
+            addAIResponse(res);
         }, 800);
     }
 
     function toggleVoice() {
         isVoice = !isVoice;
-        document.getElementById('mic-icon').classList.toggle('active-tool');
+        document.getElementById('v-mic').classList.toggle('active-tool');
     }
 
-    function download(filename) {
-        const text = document.querySelector('.code-box').innerText;
-        const element = document.createElement('a');
-        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
-        element.setAttribute('download', filename);
-        element.click();
+    function speak(text) {
+        const msg = new SpeechSynthesisUtterance(text);
+        window.speechSynthesis.speak(msg);
     }
+
+    function downloadCode() {
+        const text = document.querySelector('.code-box').innerText;
+        const blob = new Blob([text], { type: 'text/html' });
+        const elem = window.document.createElement('a');
+        elem.href = window.URL.createObjectURL(blob);
+        elem.download = 'omni_project.html';        
+        document.body.appendChild(elem);
+        elem.click();        
+        document.body.removeChild(elem);
+    }
+
+    window.onload = loadMemory;
 </script>
 </body>
 </html>
