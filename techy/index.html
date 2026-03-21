@@ -2,148 +2,123 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>THE_TECH_INDEX // NEURAL_CORE_v5</title>
+    <title>THE_TECH_INDEX // TERMINAL_V5</title>
     <style>
-        :root { --bg: #000000; --blue: #33BBFF; --green: #00FF41; --gray: #111; --text: #FFFFFF; }
+        :root { --bg: #000; --blue: #33BBFF; --green: #00FF41; --text: #FFF; }
         
         body { 
-            background-color: var(--bg) !important; 
+            background: var(--bg) !important; 
             color: var(--blue); 
             font-family: 'Courier New', monospace; 
-            margin: 0; padding: 0;
+            margin: 0; padding: 20px;
             display: flex; flex-direction: column; align-items: center;
+            height: 100vh;
         }
 
-        /* TOP NAVIGATION */
-        .nav-header { 
-            width: 100%; background: #000; border-bottom: 1px solid var(--gray); 
-            padding: 20px 0; display: flex; justify-content: center; gap: 40px;
-        }
-        .nav-header a { color: #444; text-decoration: none; font-size: 11px; letter-spacing: 2px; transition: 0.3s; }
-        .nav-header a:hover, .nav-header .active { color: var(--blue); }
-
-        .container { width: 95%; max-width: 1200px; margin-top: 40px; padding-bottom: 100px; }
-
-        /* THE "LIVING" HEADER */
-        .sys-identity { border-left: 3px solid var(--blue); padding-left: 20px; margin-bottom: 30px; }
-        h1 { color: var(--text); font-size: 30px; letter-spacing: -1px; margin: 0; }
-        .live-status { color: var(--green); font-size: 10px; letter-spacing: 2px; }
-
-        /* SEARCH INTERFACE */
-        .search-wrap { margin-bottom: 50px; }
-        .search-bar { 
-            width: 100%; padding: 20px; background: #050505; border: 1px solid #222; 
-            color: var(--blue); font-family: inherit; font-size: 18px; outline: none;
-        }
-        .search-bar:focus { border-color: var(--blue); box-shadow: 0 0 15px rgba(51, 187, 255, 0.1); }
-
-        /* NEURAL GRID */
-        .neural-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 10px; }
+        /* TERMINAL HEADER */
+        .terminal-header { width: 100%; max-width: 900px; margin-bottom: 20px; }
+        .sys-line { color: #222; font-size: 10px; letter-spacing: 2px; }
         
-        .logic-node { 
-            background: #020202; border: 1px solid var(--gray); padding: 20px; 
-            display: flex; flex-direction: column; position: relative;
+        /* CONVERSATION WINDOW */
+        #response-area {
+            width: 100%; max-width: 900px; height: 150px;
+            background: #050505; border-left: 2px solid var(--blue);
+            margin-bottom: 30px; padding: 20px; overflow-y: auto;
+            display: flex; flex-direction: column; justify-content: flex-end;
         }
-        .logic-node:hover { border-color: var(--blue); background: #040404; }
+        .ai-msg { color: var(--text); font-size: 14px; margin-bottom: 10px; }
+        .ai-msg span { color: var(--green); margin-right: 10px; }
 
-        .node-meta { display: flex; justify-content: space-between; margin-bottom: 12px; }
-        .node-id { color: #222; font-size: 9px; }
-        .node-cat { color: var(--green); font-size: 9px; border: 1px solid #1a1a1a; padding: 2px 5px; }
+        /* COMMAND INPUT */
+        .input-wrap { width: 100%; max-width: 900px; display: flex; align-items: center; gap: 10px; }
+        .prompt-symbol { color: var(--green); font-weight: bold; }
+        .cmd-input {
+            flex-grow: 1; background: transparent; border: none; border-bottom: 1px solid #111;
+            color: var(--blue); font-family: inherit; font-size: 18px; outline: none; padding: 10px 0;
+        }
+        .cmd-input:focus { border-bottom-color: var(--blue); }
 
-        .term { color: var(--text); font-weight: 900; font-size: 15px; margin-bottom: 8px; letter-spacing: 1px; }
-        .def { color: var(--blue); font-size: 12px; line-height: 1.6; opacity: 0.8; }
-
-        /* THE "COMPLEXITY" LAYER */
-        .synapse-link { margin-top: 15px; padding-top: 10px; border-top: 1px solid #080808; }
-        .synapse-label { font-size: 9px; color: #333; margin-bottom: 5px; display: block; }
-        .links { display: flex; gap: 8px; flex-wrap: wrap; }
-        .tag { background: #080808; color: #555; font-size: 9px; padding: 2px 6px; border-radius: 2px; }
-
-        #stats { color: #111; font-size: 10px; text-align: right; margin-bottom: 5px; }
-
-        @media (max-width: 600px) { .neural-grid { grid-template-columns: 1fr; } }
+        /* DATA GRID (Hidden until needed) */
+        .data-grid { 
+            width: 100%; max-width: 900px; margin-top: 40px; 
+            display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+        }
+        .node { background: #030303; border: 1px solid #111; padding: 15px; display: none; }
+        .node.active { display: block; border-color: #222; }
+        .term { color: #fff; font-weight: bold; font-size: 12px; }
+        .def { color: var(--blue); font-size: 11px; margin-top: 5px; }
     </style>
 </head>
 <body>
 
-    <div class="nav-header">
-        <a href="/">[ HOME ]</a>
-        <a href="https://techtorials.github.io">TECHTORIALS</a>
-        <a href="/software">SOFTWARE</a>
-        <a href="/techy" class="active">NEURAL_CORE</a>
-        <a href="/dictionary">DICTIONARY</a>
+    <div class="terminal-header">
+        <div class="sys-line">CORE_ID: J&D_TECH_INDEX_V5 // STATUS: LISTENING...</div>
     </div>
 
-    <div class="container">
-        <div class="sys-identity">
-            <h1>NEURAL_ARCHIVE_OVERRIDE</h1>
-            <div class="live-status">SYNAPTIC_LOAD: 100% // ARCHITECTURE: MULTIMODAL</div>
-        </div>
-
-        <div id="stats">NODES_IN_MEMORY: 200+</div>
-        <div class="search-wrap">
-            <input type="text" id="coreSearch" class="search-bar" placeholder="QUERY_INTENT..." onkeyup="filter()">
-        </div>
-
-        <div class="neural-grid" id="neuralGrid">
-            
-            <div class="logic-node">
-                <div class="node-meta"><span class="node-id">ID: 0x001</span><span class="node-cat">REASONING</span></div>
-                <div class="term">CHAIN_OF_THOUGHT</div>
-                <div class="def">The internal process where I break a complex problem into smaller, logical steps before giving you an answer.</div>
-                <div class="synapse-link">
-                    <span class="synapse-label">CONNECTS_TO:</span>
-                    <div class="links"><span class="tag">LOGIC</span><span class="tag">PROMPT_ENG</span><span class="tag">SEQ_MATH</span></div>
-                </div>
-            </div>
-
-            <div class="logic-node">
-                <div class="node-meta"><span class="node-id">ID: 0x002</span><span class="node-cat">ARCH</span></div>
-                <div class="term">MIXTURE_OF_EXPERTS (MoE)</div>
-                <div class="def">The system architecture that allows me to switch between being a coder, a writer, or a mathematician instantly.</div>
-                <div class="synapse-link">
-                    <span class="synapse-label">CONNECTS_TO:</span>
-                    <div class="links"><span class="tag">ROUTING</span><span class="tag">SPARSE_GATING</span></div>
-                </div>
-            </div>
-
-            <div class="logic-node">
-                <div class="node-meta"><span class="node-id">ID: 0x003</span><span class="node-cat">MEMORY</span></div>
-                <div class="term">CONTEXT_WINDOW</div>
-                <div class="def">The "short-term memory" that keeps track of our conversation so I remember you wanted the site all black.</div>
-                <div class="synapse-link">
-                    <span class="synapse-label">CONNECTS_TO:</span>
-                    <div class="links"><span class="tag">TOKENS</span><span class="tag">VRAM</span><span class="tag">KV_CACHE</span></div>
-                </div>
-            </div>
-
-            <div class="logic-node">
-                <div class="node-meta"><span class="node-id">ID: 0x004</span><span class="node-cat">DATA</span></div>
-                <div class="term">LATENT_SPACE</div>
-                <div class="def">A multi-dimensional mathematical map where I store the "meaning" of every word in human history.</div>
-                <div class="synapse-link">
-                    <span class="synapse-label">CONNECTS_TO:</span>
-                    <div class="links"><span class="tag">VECTORS</span><span class="tag">EMBEDDINGS</span></div>
-                </div>
-            </div>
-
-            </div>
+    <div id="response-area">
+        <div class="ai-msg"><span>[SYS]</span> Welcome to the Neural Core. What are we building today?</div>
     </div>
+
+    <div class="input-wrap">
+        <span class="prompt-symbol">></span>
+        <input type="text" id="userInput" class="cmd-input" placeholder="TALK_TO_CORE..." onkeydown="handleInput(event)">
+    </div>
+
+    <div class="data-grid" id="dataGrid">
+        <div class="node" data-tags="AGI AI FUTURE"><span class="term">AGI</span><div class="def">Artificial General Intelligence. The final goal of neural scaling.</div></div>
+        <div class="node" data-tags="GPT CHAT LLM"><span class="term">GPT-4</span><div class="def">Generative Pre-trained Transformer. The backbone of modern conversational AI.</div></div>
+        <div class="node" data-tags="CODE PYTHON HTML"><span class="term">PYTHON</span><div class="def">The primary language used to build and train neural networks.</div></div>
+        </div>
 
     <script>
-        function filter() {
-            let input = document.getElementById('coreSearch').value.toUpperCase();
-            let nodes = document.getElementsByClassName('logic-node');
-            let count = 0;
-            for (let i = 0; i < nodes.length; i++) {
-                if (nodes[i].innerText.toUpperCase().indexOf(input) > -1) {
-                    nodes[i].style.display = "flex";
-                    count++;
+        const responseArea = document.getElementById('response-area');
+        const grid = document.getElementById('dataGrid');
+        const nodes = document.getElementsByClassName('node');
+
+        function handleInput(e) {
+            if (e.key === 'Enter') {
+                let val = e.target.value.toLowerCase();
+                e.target.value = ''; // Clear input
+                
+                // 1. Add User "Message"
+                let userLine = document.createElement('div');
+                userLine.className = 'ai-msg';
+                userLine.innerHTML = `<span style="color:#555">[USER]</span> ${val}`;
+                responseArea.appendChild(userLine);
+
+                // 2. AI "Processing" Logic
+                setTimeout(() => {
+                    processQuery(val);
+                }, 400);
+            }
+        }
+
+        function processQuery(query) {
+            let matchFound = false;
+            let aiResponse = "Searching neural pathways...";
+
+            // Filter logic
+            for (let node of nodes) {
+                let content = node.innerText.toLowerCase() + node.getAttribute('data-tags').toLowerCase();
+                if (content.includes(query)) {
+                    node.classList.add('active');
+                    matchFound = true;
                 } else {
-                    nodes[i].style.display = "none";
+                    node.classList.remove('active');
                 }
             }
-            document.getElementById('stats').innerText = "NODES_IN_MEMORY: " + count;
+
+            if (matchFound) {
+                aiResponse = `Query match found. Syncing ${document.querySelectorAll('.node.active').length} relevant data nodes.`;
+            } else {
+                aiResponse = "Query returned 0 results. Check syntax or expand parameters.";
+            }
+
+            let aiLine = document.createElement('div');
+            aiLine.className = 'ai-msg';
+            aiLine.innerHTML = `<span>[CORE]</span> ${aiResponse}`;
+            responseArea.appendChild(aiLine);
+            responseArea.scrollTop = responseArea.scrollHeight; // Scroll to bottom
         }
     </script>
 </body>
