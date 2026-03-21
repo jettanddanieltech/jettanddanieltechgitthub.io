@@ -2,124 +2,74 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>THE_TECH_INDEX // TERMINAL_V5</title>
+    <title>THE_TECH_INDEX // NEURAL_CORE</title>
     <style>
-        :root { --bg: #000; --blue: #33BBFF; --green: #00FF41; --text: #FFF; }
+        :root { --bg: #000; --blue: #33BBFF; --green: #00FF41; --text: #FFF; --dim: #111; }
+        body { background: var(--bg) !important; color: var(--blue); font-family: 'Courier New', monospace; margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center; }
         
-        body { 
-            background: var(--bg) !important; 
-            color: var(--blue); 
-            font-family: 'Courier New', monospace; 
-            margin: 0; padding: 20px;
-            display: flex; flex-direction: column; align-items: center;
-            height: 100vh;
-        }
+        /* PERSISTENT CONVERSATION TERMINAL */
+        .terminal { position: sticky; top: 0; width: 100%; background: rgba(0,0,0,0.9); border-bottom: 1px solid var(--dim); padding: 20px 0; z-index: 1000; display: flex; flex-direction: column; align-items: center; }
+        #chat { width: 90%; max-width: 800px; height: 60px; overflow-y: auto; font-size: 12px; margin-bottom: 10px; }
+        .msg { margin-bottom: 4px; }
+        .msg.ai b { color: var(--green); margin-right: 8px; }
+        .input-box { width: 90%; max-width: 800px; display: flex; align-items: center; border-bottom: 1px solid var(--dim); }
+        input { width: 100%; background: transparent; border: none; color: var(--blue); font-family: inherit; font-size: 18px; outline: none; padding: 10px 0; }
 
-        /* TERMINAL HEADER */
-        .terminal-header { width: 100%; max-width: 900px; margin-bottom: 20px; }
-        .sys-line { color: #222; font-size: 10px; letter-spacing: 2px; }
-        
-        /* CONVERSATION WINDOW */
-        #response-area {
-            width: 100%; max-width: 900px; height: 150px;
-            background: #050505; border-left: 2px solid var(--blue);
-            margin-bottom: 30px; padding: 20px; overflow-y: auto;
-            display: flex; flex-direction: column; justify-content: flex-end;
-        }
-        .ai-msg { color: var(--text); font-size: 14px; margin-bottom: 10px; }
-        .ai-msg span { color: var(--green); margin-right: 10px; }
-
-        /* COMMAND INPUT */
-        .input-wrap { width: 100%; max-width: 900px; display: flex; align-items: center; gap: 10px; }
-        .prompt-symbol { color: var(--green); font-weight: bold; }
-        .cmd-input {
-            flex-grow: 1; background: transparent; border: none; border-bottom: 1px solid #111;
-            color: var(--blue); font-family: inherit; font-size: 18px; outline: none; padding: 10px 0;
-        }
-        .cmd-input:focus { border-bottom-color: var(--blue); }
-
-        /* DATA GRID (Hidden until needed) */
-        .data-grid { 
-            width: 100%; max-width: 900px; margin-top: 40px; 
-            display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
-        }
-        .node { background: #030303; border: 1px solid #111; padding: 15px; display: none; }
-        .node.active { display: block; border-color: #222; }
-        .term { color: #fff; font-weight: bold; font-size: 12px; }
-        .def { color: var(--blue); font-size: 11px; margin-top: 5px; }
+        /* THE GRID */
+        .grid { width: 95%; max-width: 1200px; margin-top: 30px; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 10px; padding-bottom: 100px; }
+        .node { background: #020202; border: 1px solid var(--dim); padding: 15px; display: flex; flex-direction: column; }
+        .node:hover { border-color: var(--blue); }
+        .term { color: var(--text); font-weight: bold; font-size: 13px; margin-bottom: 5px; }
+        .def { font-size: 11px; opacity: 0.7; line-height: 1.4; }
     </style>
 </head>
 <body>
 
-    <div class="terminal-header">
-        <div class="sys-line">CORE_ID: J&D_TECH_INDEX_V5 // STATUS: LISTENING...</div>
+<div class="terminal">
+    <div id="chat"><div class="msg ai"><b>[CORE]</b> AI_DATABASE_LOADED. 250+ Neural Nodes Syncing...</div></div>
+    <div class="input-box">
+        <span style="color:var(--green); margin-right:10px;">></span>
+        <input type="text" id="cmd" placeholder="QUERY_AI_LOGIC..." onkeydown="handle(event)">
+    </div>
+</div>
+
+<div class="grid" id="grid">
     </div>
 
-    <div id="response-area">
-        <div class="ai-msg"><span>[SYS]</span> Welcome to the Neural Core. What are we building today?</div>
-    </div>
+<script>
+    const data = [
+        { t: "AGI", d: "Artificial General Intelligence. AI that matches human cognition." },
+        { t: "BACKPROPAGATION", d: "Fundamental algorithm for training neural networks via gradients." },
+        { t: "CNN", d: "Convolutional Neural Network. Specialized for visual pattern recognition." },
+        { t: "DIFFUSION", d: "Generative logic used to create high-fidelity images from noise." },
+        { t: "EMBEDDINGS", d: "Vector representations of text captured in high-dimensional space." },
+        // ... Repeat or add more to reach 250+
+    ];
 
-    <div class="input-wrap">
-        <span class="prompt-symbol">></span>
-        <input type="text" id="userInput" class="cmd-input" placeholder="TALK_TO_CORE..." onkeydown="handleInput(event)">
-    </div>
+    const grid = document.getElementById('grid');
+    const chat = document.getElementById('chat');
 
-    <div class="data-grid" id="dataGrid">
-        <div class="node" data-tags="AGI AI FUTURE"><span class="term">AGI</span><div class="def">Artificial General Intelligence. The final goal of neural scaling.</div></div>
-        <div class="node" data-tags="GPT CHAT LLM"><span class="term">GPT-4</span><div class="def">Generative Pre-trained Transformer. The backbone of modern conversational AI.</div></div>
-        <div class="node" data-tags="CODE PYTHON HTML"><span class="term">PYTHON</span><div class="def">The primary language used to build and train neural networks.</div></div>
-        </div>
-
-    <script>
-        const responseArea = document.getElementById('response-area');
-        const grid = document.getElementById('dataGrid');
-        const nodes = document.getElementsByClassName('node');
-
-        function handleInput(e) {
-            if (e.key === 'Enter') {
-                let val = e.target.value.toLowerCase();
-                e.target.value = ''; // Clear input
-                
-                // 1. Add User "Message"
-                let userLine = document.createElement('div');
-                userLine.className = 'ai-msg';
-                userLine.innerHTML = `<span style="color:#555">[USER]</span> ${val}`;
-                responseArea.appendChild(userLine);
-
-                // 2. AI "Processing" Logic
-                setTimeout(() => {
-                    processQuery(val);
-                }, 400);
+    function loadEntries(filter = "") {
+        grid.innerHTML = '';
+        data.forEach(item => {
+            if (item.t.toLowerCase().includes(filter) || item.d.toLowerCase().includes(filter)) {
+                grid.innerHTML += `<div class="node"><div class="term">${item.t}</div><div class="def">${item.d}</div></div>`;
             }
+        });
+    }
+
+    function handle(e) {
+        if (e.key === 'Enter') {
+            let val = e.target.value;
+            chat.innerHTML += `<div class="msg user" style="color:#333;">[USER] ${val}</div>`;
+            loadEntries(val.toLowerCase());
+            chat.innerHTML += `<div class="msg ai"><b>[CORE]</b> Filtering archive for: "${val}"</div>`;
+            e.target.value = '';
+            chat.scrollTop = chat.scrollHeight;
         }
+    }
 
-        function processQuery(query) {
-            let matchFound = false;
-            let aiResponse = "Searching neural pathways...";
-
-            // Filter logic
-            for (let node of nodes) {
-                let content = node.innerText.toLowerCase() + node.getAttribute('data-tags').toLowerCase();
-                if (content.includes(query)) {
-                    node.classList.add('active');
-                    matchFound = true;
-                } else {
-                    node.classList.remove('active');
-                }
-            }
-
-            if (matchFound) {
-                aiResponse = `Query match found. Syncing ${document.querySelectorAll('.node.active').length} relevant data nodes.`;
-            } else {
-                aiResponse = "Query returned 0 results. Check syntax or expand parameters.";
-            }
-
-            let aiLine = document.createElement('div');
-            aiLine.className = 'ai-msg';
-            aiLine.innerHTML = `<span>[CORE]</span> ${aiResponse}`;
-            responseArea.appendChild(aiLine);
-            responseArea.scrollTop = responseArea.scrollHeight; // Scroll to bottom
-        }
-    </script>
+    loadEntries();
+</script>
 </body>
 </html>
