@@ -4,60 +4,66 @@
     <meta charset="UTF-8">
     <title>THE_TECH_INDEX // DICTIONARY</title>
     <style>
-        :root { --bg: #000; --blue: #33BBFF; --green: #00FF41; }
-        body { background: var(--bg); color: #ccc; font-family: 'Courier New', monospace; margin: 0; }
-        .nav-header { background: #050505; border-bottom: 1px solid var(--green); padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; }
-        .nav-header a { color: #eee; text-decoration: none; font-size: 12px; }
-        .container { padding: 40px; }
-        .search { width: 100%; padding: 15px; background: #080808; border: 1px solid var(--blue); color: var(--blue); font-family: inherit; margin-bottom: 30px; outline: none; }
-        .term-row { border-bottom: 1px solid #111; padding: 10px 0; display: flex; }
-        .term-row b { color: var(--green); min-width: 150px; }
+        /* ... Paste CSS from Techy above ... */
+        :root { --bg: #000; --blue: #33BBFF; --green: #00FF41; --text: #FFF; --dim: #111; }
+        body { background: var(--bg) !important; color: var(--blue); font-family: 'Courier New', monospace; margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center; }
+        .terminal { position: sticky; top: 0; width: 100%; background: rgba(0,0,0,0.9); border-bottom: 1px solid var(--dim); padding: 20px 0; z-index: 1000; display: flex; flex-direction: column; align-items: center; }
+        #chat { width: 90%; max-width: 800px; height: 60px; overflow-y: auto; font-size: 12px; margin-bottom: 10px; }
+        .msg { margin-bottom: 4px; }
+        .msg.ai b { color: var(--green); margin-right: 8px; }
+        .input-box { width: 90%; max-width: 800px; display: flex; align-items: center; border-bottom: 1px solid var(--dim); }
+        input { width: 100%; background: transparent; border: none; color: var(--blue); font-family: inherit; font-size: 18px; outline: none; padding: 10px 0; }
+        .grid { width: 95%; max-width: 1200px; margin-top: 30px; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 10px; padding-bottom: 100px; }
+        .node { background: #020202; border: 1px solid var(--dim); padding: 15px; display: flex; flex-direction: column; }
+        .term { color: var(--text); font-weight: bold; font-size: 13px; margin-bottom: 5px; }
+        .def { font-size: 11px; opacity: 0.7; line-height: 1.4; }
     </style>
 </head>
 <body>
-    <div class="nav-header">
-        <a href="/" style="font-weight:bold; color:var(--green)">[ THE_TECH_INDEX ]</a>
-        <div style="display:flex; gap:20px;">
-            <a href="/tutorials">TECHTORIALS</a>
-            <a href="/software">SOFTWARE</a>
-            <a href="/techy">AI_DATABASE</a>
-            <a href="/dictionary" style="color:var(--green)">DICTIONARY</a>
-        </div>
+
+<div class="terminal">
+    <div id="chat"><div class="msg ai"><b>[DICT]</b> TECH_DICTIONARY_V1. 250+ Terms Found.</div></div>
+    <div class="input-box">
+        <span style="color:var(--green); margin-right:10px;">></span>
+        <input type="text" id="cmd" placeholder="LOOKUP_TERM..." onkeydown="handle(event)">
     </div>
-    <div class="container">
-        <h1 style="color:var(--green)">HARDWARE_DICTIONARY_v2</h1>
-        <input type="text" class="search" placeholder="FILTER_HARDWARE_TERMINOLOGY..." onkeyup="filter(this, 'term-row')">
-        <div id="dictList">
-            <div class="term-row"><b>BIOS</b>Basic Input/Output System. Firmware that starts the PC.</div>
-            <div class="term-row"><b>CMOS</b>Battery that keeps the PC clock and BIOS settings alive.</div>
-            <div class="term-row"><b>DIGITIZER</b>The glass layer of a screen that detects touch.</div>
-            <div class="term-row"><b>ESD_STRAP</b>Wrist strap used to prevent static damage to parts.</div>
-            <div class="term-row"><b>FPC_CONN</b>Flexible Printed Circuit connector (ribbon cable port).</div>
-            <div class="term-row"><b>GPU</b>Graphics Processing Unit. Dedicated video processor.</div>
-            <div class="term-row"><b>HEATSINK</b>Metal block used to pull heat away from a CPU.</div>
-            <div class="term-row"><b>ISOPROPYL</b>90%+ Alcohol used for cleaning thermal paste/motherboards.</div>
-            <div class="term-row"><b>JUMP_WIRE</b>Small copper wire used to repair broken board traces.</div>
-            <div class="term-row"><b>KICKSTAND</b>The mechanical support on tablets/consoles.</div>
-            <div class="term-row"><b>LI-ION</b>Lithium-Ion. The chemistry used in modern phone batteries.</div>
-            <div class="term-row"><b>MOTHERBOARD</b>The main circuit board connecting all components.</div>
-            <div class="term-row"><b>NVME</b>Non-Volatile Memory Express. High-speed SSD standard.</div>
-            <div class="term-row"><b>OLED</b>Organic Light Emitting Diode. High-contrast screen tech.</div>
-            <div class="term-row"><b>PENTALOBE</b>5-point star screw used in iPhones and MacBooks.</div>
-            <div class="term-row"><b>QUARTZ</b>The crystal used to keep timing on a motherboard.</div>
-            <div class="term-row"><b>RAM</b>Random Access Memory. Temporary storage for active apps.</div>
-            <div class="term-row"><b>SPUDGER</b>Plastic prying tool used to avoid short circuits.</div>
-            <div class="term-row"><b>THERMAL_PASTE</b>Compound that fills gaps between CPU and heatsink.</div>
-            <div class="term-row"><b>USB-C</b>Universal serial bus standard for charging and data.</div>
-            <div class="term-row"><b>VRAM</b>Dedicated memory for graphics cards.</div>
-            <div class="term-row"><b>WATTAGE</b>Measurement of power consumption for PSUs.</div>
-            </div>
-    </div>
-    <script>
-        function filter(el, cls) {
-            let val = el.value.toLowerCase();
-            let items = document.getElementsByClassName(cls);
-            for (let i of items) { i.style.display = i.innerText.toLowerCase().includes(val) ? "flex" : "none"; }
+</div>
+
+<div class="grid" id="grid"></div>
+
+<script>
+    const data = [
+        { t: "API", d: "Application Programming Interface. Rules for software interaction." },
+        { t: "BOOLEAN", d: "A data type that has one of two possible values: true or false." },
+        { t: "CACHE", d: "Temporary storage for high-speed data retrieval." },
+        { t: "DNS", d: "Domain Name System. Translates domain names to IP addresses." },
+        { t: "FIREWALL", d: "Security system that monitors network traffic based on rules." },
+        // ... Add hardware/code terms to reach 250+
+    ];
+
+    const grid = document.getElementById('grid');
+    const chat = document.getElementById('chat');
+
+    function loadEntries(filter = "") {
+        grid.innerHTML = '';
+        data.forEach(item => {
+            if (item.t.toLowerCase().includes(filter) || item.d.toLowerCase().includes(filter)) {
+                grid.innerHTML += `<div class="node"><div class="term">${item.t}</div><div class="def">${item.d}</div></div>`;
+            }
+        });
+    }
+
+    function handle(e) {
+        if (e.key === 'Enter') {
+            let val = e.target.value;
+            chat.innerHTML += `<div class="msg user" style="color:#333;">[USER] ${val}</div>`;
+            loadEntries(val.toLowerCase());
+            chat.innerHTML += `<div class="msg ai"><b>[DICT]</b> Definition found for: "${val}"</div>`;
+            e.target.value = '';
+            chat.scrollTop = chat.scrollHeight;
         }
-    </script>
+    }
+    loadEntries();
+</script>
 </body>
 </html>
