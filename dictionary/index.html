@@ -2,68 +2,429 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>THE_TECH_INDEX // DICTIONARY</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>JDT // ENCYCLOPEDIA_300</title>
     <style>
-        /* ... Paste CSS from Techy above ... */
-        :root { --bg: #000; --blue: #33BBFF; --green: #00FF41; --text: #FFF; --dim: #111; }
-        body { background: var(--bg) !important; color: var(--blue); font-family: 'Courier New', monospace; margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center; }
-        .terminal { position: sticky; top: 0; width: 100%; background: rgba(0,0,0,0.9); border-bottom: 1px solid var(--dim); padding: 20px 0; z-index: 1000; display: flex; flex-direction: column; align-items: center; }
-        #chat { width: 90%; max-width: 800px; height: 60px; overflow-y: auto; font-size: 12px; margin-bottom: 10px; }
-        .msg { margin-bottom: 4px; }
-        .msg.ai b { color: var(--green); margin-right: 8px; }
-        .input-box { width: 90%; max-width: 800px; display: flex; align-items: center; border-bottom: 1px solid var(--dim); }
-        input { width: 100%; background: transparent; border: none; color: var(--blue); font-family: inherit; font-size: 18px; outline: none; padding: 10px 0; }
-        .grid { width: 95%; max-width: 1200px; margin-top: 30px; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 10px; padding-bottom: 100px; }
-        .node { background: #020202; border: 1px solid var(--dim); padding: 15px; display: flex; flex-direction: column; }
-        .term { color: var(--text); font-weight: bold; font-size: 13px; margin-bottom: 5px; }
-        .def { font-size: 11px; opacity: 0.7; line-height: 1.4; }
+        :root { --cyan: #00d2ff; --bg: #000; --panel: #0a0a0a; --border: #1a1a1a; --font: 'Courier New', monospace; }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { margin: 0; background: var(--bg); color: #fff; font-family: var(--font); height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
+
+        /* NAV BAR */
+        .nav-bar { width: 100%; display: flex; justify-content: center; gap: 15px; padding: 20px 0; border-bottom: 1px solid var(--border); flex-shrink: 0; background: #000; }
+        .nav-item { color: #444; text-decoration: none; font-size: 0.7rem; letter-spacing: 2px; font-weight: bold; text-transform: uppercase; }
+        .nav-item:active { color: var(--cyan); }
+
+        /* SEARCH SECTION */
+        .search-container { padding: 20px; border-bottom: 1px solid #111; flex-shrink: 0; background: #000; }
+        .search-bar { width: 100%; background: #080808; border: 1px solid var(--cyan); padding: 18px; color: var(--cyan); font-family: var(--font); font-size: 1rem; outline: none; box-shadow: 0 0 10px rgba(0,210,255,0.1); border-radius: 0; }
+        
+        /* LIST SECTION */
+        #dict-list { flex-grow: 1; overflow-y: auto; padding: 20px; scroll-behavior: smooth; }
+        .entry { border-left: 3px solid var(--cyan); background: var(--panel); padding: 15px; margin-bottom: 15px; transition: 0.2s; border-radius: 2px; }
+        .entry-word { color: #fff; font-weight: 900; letter-spacing: 2px; font-size: 0.95rem; margin-bottom: 5px; text-transform: uppercase; }
+        .entry-def { color: #777; font-size: 0.8rem; line-height: 1.5; }
+        .counter { padding: 10px; font-size: 0.6rem; color: #333; text-align: center; letter-spacing: 2px; background: #000; border-top: 1px solid #111; }
+        
+        /* SCROLLBAR */
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: #000; }
+        ::-webkit-scrollbar-thumb { background: var(--cyan); }
     </style>
 </head>
 <body>
 
-<div class="terminal">
-    <div id="chat"><div class="msg ai"><b>[DICT]</b> TECH_DICTIONARY_V1. 250+ Terms Found.</div></div>
-    <div class="input-box">
-        <span style="color:var(--green); margin-right:10px;">></span>
-        <input type="text" id="cmd" placeholder="LOOKUP_TERM..." onkeydown="handle(event)">
+    <nav class="nav-bar">
+        <a href="index.html" style="color:#fff; border:1px solid #333; padding:0 5px; text-decoration:none;">HOME</a>
+        <a href="dictionary.html" class="nav-item" style="color:var(--cyan)">DICT</a>
+        <a href="hardware.html" class="nav-item">HARD</a>
+        <a href="software.html" class="nav-item">SOFT</a>
+        <a href="ai.html" class="nav-item">AI</a>
+        <a href="tutorials.html" class="nav-item">TUTS</a>
+    </nav>
+
+    <div class="search-container">
+        <input type="text" id="search-input" class="search-bar" placeholder="SEARCH_DATABASE..." onkeyup="search()">
     </div>
-</div>
 
-<div class="grid" id="grid"></div>
+    <div id="dict-list">
+        </div>
 
-<script>
-    const data = [
-        { t: "API", d: "Application Programming Interface. Rules for software interaction." },
-        { t: "BOOLEAN", d: "A data type that has one of two possible values: true or false." },
-        { t: "CACHE", d: "Temporary storage for high-speed data retrieval." },
-        { t: "DNS", d: "Domain Name System. Translates domain names to IP addresses." },
-        { t: "FIREWALL", d: "Security system that monitors network traffic based on rules." },
-        // ... Add hardware/code terms to reach 250+
-    ];
+    <div class="counter" id="term-count">TERMS_LOADED: 300</div>
 
-    const grid = document.getElementById('grid');
-    const chat = document.getElementById('chat');
+    <script>
+        const JDT_DATABASE = [
+            {w: "A-SERIES", d: "High-performance custom SoCs by Apple for mobile hardware."},
+            {w: "ABSTRACTION", d: "Software concept of hiding complexity and showing only essentials."},
+            {w: "ACCELEROMETER", d: "Sensor that detects motion and device orientation."},
+            {w: "ACTIVE DEVICE", d: "Component like a transistor that requires power to operate."},
+            {w: "ADHESIVE", d: "Bonding material used to secure screens and batteries."},
+            {w: "AGILE", d: "Software development method focused on iterative progress."},
+            {w: "ALGORITHM", d: "A step-by-step procedure for solving a technical problem."},
+            {w: "ALIGNMENT JIG", d: "Tool used to precisely position parts during reassembly."},
+            {w: "ALU", d: "Arithmetic Logic Unit. The math engine inside the CPU."},
+            {w: "AMOLED", d: "Active-Matrix Organic Light-Emitting Diode display technology."},
+            {w: "AMPERAGE", d: "The strength of electrical flow in a circuit (Amps)."},
+            {w: "ANODE", d: "The positive electrode where current enters a component."},
+            {w: "ANTENNA", d: "Transmits and receives RF signals for Wi-Fi and Cellular."},
+            {w: "API", d: "Application Programming Interface. Protocol for app communication."},
+            {w: "APN", d: "Access Point Name. Settings used to connect to mobile internet."},
+            {w: "APP CRASH", d: "Software failure where a program stops responding suddenly."},
+            {w: "ASIC", d: "Application-Specific Integrated Circuit. Custom-built chips."},
+            {w: "AUTHENTICATION", d: "Verification of identity (PIN, Biometrics, Password)."},
+            {w: "B-CHASSIS", d: "The internal frame structure of a mobile device."},
+            {w: "BACK GLASS", d: "The rear protective panel of high-end smartphones."},
+            {w: "BACKLIGHT", d: "The light source behind an LCD panel."},
+            {w: "BACKUP", d: "A redundant copy of data for disaster recovery."},
+            {w: "BANDWIDTH", d: "Maximum rate of data transfer across a network."},
+            {w: "BASEBAND", d: "Processor handling radio signals and cellular network sync."},
+            {w: "BATTERY HEALTH", d: "Percentage of original capacity remaining in a cell."},
+            {w: "BAUD", d: "Unit of signaling speed in telecommunications."},
+            {w: "BGA", d: "Ball Grid Array. Surface-mount packaging for chips."},
+            {w: "BIG O", d: "Notation used to describe the efficiency of an algorithm."},
+            {w: "BINARY", d: "Base-2 numbering system (0s and 1s) used by computers."},
+            {w: "BIOS", d: "Basic Input/Output System. Firmware for PC startup."},
+            {w: "BIT", d: "The smallest unit of digital data (0 or 1)."},
+            {w: "BLUETOOTH", d: "Short-range wireless protocol for data exchange."},
+            {w: "BOOT LOOP", d: "Software failure where a device restarts indefinitely."},
+            {w: "BOOTLOADER", d: "Code that loads the OS into memory upon startup."},
+            {w: "BRICK", d: "A device made non-functional by software/firmware failure."},
+            {w: "BROWSER", d: "Software used to access and display web content."},
+            {w: "BSI", d: "Battery Status Indicator. Line that tells OS battery level."},
+            {w: "BUG", d: "An error or flaw in software code or hardware logic."},
+            {w: "BUS", d: "Communication pathway between computer components."},
+            {w: "BYTE", d: "Unit of data consisting of 8 bits."},
+            {w: "CACHE", d: "High-speed temporary storage for frequent data access."},
+            {w: "CALIBRATION", d: "Adjusting hardware sensors to original factory specs."},
+            {w: "CAPACITOR", d: "Component that stores electrical energy temporarily."},
+            {w: "CARRIER", d: "Wireless service provider (e.g., Verizon, T-Mobile)."},
+            {w: "CATHODE", d: "The negative electrode in a battery or circuit."},
+            {w: "CDMA", d: "Code-Division Multiple Access. 2G/3G cellular standard."},
+            {w: "CELL", d: "A geographic area served by a specific tower antenna."},
+            {w: "CHIPSET", d: "Group of integrated circuits that work together (e.g. SoC)."},
+            {w: "CIRCUIT", d: "A closed path that allows electrical current to flow."},
+            {w: "CLAMP", d: "Tool used to apply pressure while screen adhesive cures."},
+            {w: "CLASS", d: "In OOP, a blueprint for creating objects."},
+            {w: "CLIENT", d: "Hardware or software that requests data from a server."},
+            {w: "CLOUD", d: "Off-site servers used for storage and processing."},
+            {w: "CMOS", d: "Battery-powered chip that stores BIOS settings."},
+            {w: "CODE", d: "Instructions written in a programming language."},
+            {w: "COMPILER", d: "Software that converts code into machine language."},
+            {w: "COMPLEXITY", d: "Measure of resources an algorithm uses (time/space)."},
+            {w: "COMPONENT", d: "Individual hardware part (resistor, IC, screen)."},
+            {w: "CONTINUITY", d: "Uninterrupted path for current in an electrical circuit."},
+            {w: "CONTROL UNIT", d: "Part of the CPU that directs system operations."},
+            {w: "CPU", d: "Central Processing Unit. The primary brain of the device."},
+            {w: "CRACKED SCREEN", d: "Physical damage to the glass or digitizer layer."},
+            {w: "CYBERSECURITY", d: "Practice of protecting systems from digital attacks."},
+            {w: "D-PULSE", d: "Diagnostic signal used to verify IC responsiveness."},
+            {w: "DAUGHTERBOARD", d: "Secondary PCB connected to the main logic board."},
+            {w: "DATA BUS", d: "Path used to move data between CPU and memory."},
+            {w: "DATA RECOVERY", d: "Retrieving files from damaged or dead hardware."},
+            {w: "DATABASE", d: "Structured collection of stored digital information."},
+            {w: "DC POWER", d: "Direct Current. The type of power used by mobile chips."},
+            {w: "DEAD PHONE", d: "A device that shows no response to power or charging."},
+            {w: "DEBUGGING", d: "The process of finding and fixing errors in code."},
+            {w: "DECOMPOSITION", d: "Breaking a complex problem into smaller parts."},
+            {w: "DECRYPT", d: "Converting encrypted data back into readable form."},
+            {w: "DEPENDENCY", d: "A software component that another one relies on."},
+            {w: "DEVOPS", d: "Combines development and IT operations for speed."},
+            {w: "DIAGNOSTIC", d: "Tools or tests used to identify hardware faults."},
+            {w: "DIGITIZER", d: "Layer of glass that converts touch into digital input."},
+            {w: "DIODE", d: "Semiconductor that allows current to flow one way."},
+            {w: "DISPLAY", d: "The visual output component (LCD, OLED, etc.)."},
+            {w: "DNS", d: "Domain Name System. Translates URLs to IP addresses."},
+            {w: "DRIVER", d: "Software that allows OS to talk to hardware parts."},
+            {w: "DRY SOLDER", d: "Faulty solder joint that has cracked or disconnected."},
+            {w: "DUAL SIM", d: "Hardware supporting two cellular network identities."},
+            {w: "DUMP", d: "A copy of memory or storage taken for analysis."},
+            {w: "DYNAMIC TYPING", d: "Type checking performed at runtime in software."},
+            {w: "EAR SPEAKER", d: "Component used for audio during voice calls."},
+            {w: "EEPROM", d: "Electrically Erasable Programmable Read-Only Memory."},
+            {w: "EFUSE", d: "Permanent internal security switch in processors."},
+            {w: "ELECTROLYTE", d: "Conductive medium inside a lithium-ion battery."},
+            {w: "EMBEDDED", d: "Hardware/software dedicated to one specific task."},
+            {w: "EMMC", d: "Embedded Multi-Media Controller. Internal storage tech."},
+            {w: "ENCRYPT", d: "Converting data into code to prevent unauthorized access."},
+            {w: "ENDPOINT", d: "Any device connected to a network (phone, PC)."},
+            {w: "ENVIRONMENT", d: "The ecosystem where software is built or runs."},
+            {w: "EPROM", d: "Erasable Programmable Read-Only Memory."},
+            {w: "ESD", d: "Electrostatic Discharge. Can kill chips instantly."},
+            {w: "ETHERNET", d: "Standard for wired local area networking."},
+            {w: "EXCHANGE", d: "Centralized hub for telecommunications routing."},
+            {w: "FACTORY RESET", d: "Wiping all user data to original software state."},
+            {w: "FCC", d: "Federal Communications Commission. Regulates RF devices."},
+            {w: "FIBER OPTIC", d: "Data transmission using light pulses through glass."},
+            {w: "FILE SYSTEM", d: "How data is organized and stored on a drive."},
+            {w: "FILTER", d: "Circuit that removes unwanted electrical noise."},
+            {w: "FIRMWARE", d: "Low-level software embedded into hardware."},
+            {w: "FLASH", d: "Type of non-volatile memory that can be erased."},
+            {w: "FLASHING", d: "Installing or updating a device's firmware/OS."},
+            {w: "FLEX CABLE", d: "Thin, flexible ribbon connecting internal parts."},
+            {w: "FLUX", d: "Chemical used to clean and assist solder flow."},
+            {w: "FPC", d: "Flexible Printed Circuit. Type of ribbon connector."},
+            {w: "FRAME", d: "The structure holding all internal components."},
+            {w: "FREQUENCY", d: "Rate of signal oscillation measured in Hertz."},
+            {w: "FRP LOCK", d: "Factory Reset Protection. Security for stolen devices."},
+            {w: "FRONT CAMERA", d: "Sensor used for selfies and FaceID/Video calls."},
+            {w: "FUSE", d: "Safety component that breaks if current is too high."},
+            {w: "G-SENSOR", d: "Gravity sensor for measuring acceleration/tilt."},
+            {w: "GATEWAY", d: "Node that connects two different networks."},
+            {w: "GB", d: "Gigabyte. 1,000,000,000 bytes of data."},
+            {w: "GENERAL PURPOSE", d: "CPU designed for many tasks, unlike an ASIC."},
+            {w: "GHOST TOUCH", d: "Screen registering input without being touched."},
+            {w: "GHZ", d: "Gigahertz. 1,000,000,000 cycles per second."},
+            {w: "GLOVES", d: "Anti-static gear to prevent ESD and skin oil damage."},
+            {w: "GORILLA GLASS", d: "Chemically strengthened glass for phone displays."},
+            {w: "GPU", d: "Graphics Processing Unit. Handles visual rendering."},
+            {w: "GROUND", d: "Common return path for current in an electrical circuit."},
+            {w: "GSM", d: "Global System for Mobile communication. 2G standard."},
+            {w: "GUI", d: "Graphical User Interface. Visual OS menus."},
+            {w: "HANG", d: "Device state where software stops responding to input."},
+            {w: "HAPTICS", d: "Tactile feedback using precise vibration motors."},
+            {w: "HARD RESET", d: "Force-restarting a device using physical buttons."},
+            {w: "HARDWARE", d: "The physical, tangible parts of a computer system."},
+            {w: "HDMI", d: "High-Definition Multimedia Interface for video/audio."},
+            {w: "HEAT GUN", d: "Hot air tool for desoldering and loosening adhesive."},
+            {w: "HEAT MAT", d: "Flat surface for warming devices to soften glue."},
+            {w: "HERTZ", d: "Unit of frequency (1 cycle per second)."},
+            {w: "HIERARCHY", d: "Organizational structure for data or system logic."},
+            {w: "HIGH PASS", d: "Filter that allows high frequencies through."},
+            {w: "HOME BUTTON", d: "The main navigation key (physical or soft-touch)."},
+            {w: "HOTSPOT", d: "Using a mobile device to share Wi-Fi with others."},
+            {w: "HTML", d: "HyperText Markup Language. The structure of the web."},
+            {w: "HTTP", d: "HyperText Transfer Protocol for web data exchange."},
+            {w: "HYBRID APP", d: "App that works across both iOS and Android."},
+            {w: "IC", d: "Integrated Circuit. Microchip with complex circuitry."},
+            {w: "IDE", d: "Integrated Development Environment for coding."},
+            {w: "IEEE", d: "Global standards organization for electronics/tech."},
+            {w: "IMEI", d: "Unique 15-digit ID for every cellular device."},
+            {w: "IMPRESSION", d: "Metric for how often content is fetched digitally."},
+            {w: "INDUCTOR", d: "Component that stores energy in a magnetic field."},
+            {w: "INFERENCE", d: "AI conclusion based on data and learned patterns."},
+            {w: "INPUT", d: "Data or signals sent into a computer system."},
+            {w: "INSTAGRAM", d: "Social platform based on image and video sharing."},
+            {w: "INTEGRITY", d: "Accuracy and consistency of data over its lifecycle."},
+            {w: "INTERFACE", d: "Point of interaction between hardware or software."},
+            {w: "INTERNAL STORAGE", d: "The NAND/UFS chip where files are kept."},
+            {w: "INTERNET", d: "The global network of interconnected computers."},
+            {w: "IOS", d: "Mobile operating system created by Apple Inc."},
+            {w: "IP RATING", d: "Ingress Protection. Water/Dust resistance scale."},
+            {w: "IPHONE", d: "Line of smartphones developed by Apple."},
+            {w: "IROUND", d: "Software verification for circuit path grounding."},
+            {w: "ISA", d: "Instruction Set Architecture. CPU instruction rules."},
+            {w: "IT SUPPORT", d: "Services for troubleshooting tech infrastructure."},
+            {w: "ITERATION", d: "A single cycle of a software development process."},
+            {w: "JACK", d: "Physical female connector (e.g., Headphone jack)."},
+            {w: "JAILBREAK", d: "Removing software restrictions on iOS devices."},
+            {w: "JAVA", d: "Popular cross-platform programming language."},
+            {w: "JUMPER", d: "Wire used to bypass a broken circuit connection."},
+            {w: "KERNEL", d: "The core software bridge between CPU and Apps."},
+            {w: "KEYBOARD", d: "Input device for text and commands."},
+            {w: "KEYWORDS", d: "Terms used for indexing and searching data."},
+            {w: "KILOBYTE", d: "1,024 bytes of digital information."},
+            {w: "LATENCY", d: "Delay between a command and the system response."},
+            {w: "LCD", d: "Liquid Crystal Display. Screen tech using backlight."},
+            {w: "LEAD-FREE", d: "Solder required by modern environmental standards."},
+            {w: "LED", d: "Light Emitting Diode. Efficient light source."},
+            {w: "LIDAR", d: "Light Detection and Ranging for 3D depth sensing."},
+            {w: "LIGTHNING", d: "Apple's proprietary connector for charging/data."},
+            {w: "LINUX", d: "Open-source kernel used for Android and servers."},
+            {w: "LI-ION", d: "Lithium-Ion. Rechargeable battery chemistry."},
+            {w: "LOADER", d: "Part of OS that starts a program into memory."},
+            {w: "LOCAL STORAGE", d: "Data saved on the physical device drive."},
+            {w: "LOGIC BOARD", d: "The main motherboard in a mobile device."},
+            {w: "LOGIC GATE", d: "Basic building block of digital logic (AND, OR)."},
+            {w: "LOOP", d: "Code that repeats until a condition is met."},
+            {w: "LOUDSPEAKER", d: "Component for external audio/music/speakerphone."},
+            {w: "LTE", d: "Long-Term Evolution. 4G cellular high-speed data."},
+            {w: "MACHINE CODE", d: "Lowest level instructions executed by a CPU."},
+            {w: "MACROS", d: "Automated scripts for repetitive software tasks."},
+            {w: "MAINBOARD", d: "The primary PCB of a computer system."},
+            {w: "MALWARE", d: "Malicious software designed to damage systems."},
+            {w: "MB", d: "Megabyte. Roughly 1,000,000 bytes."},
+            {w: "MEMORY", d: "Storage used for immediate processing (RAM)."},
+            {w: "MESH", d: "Type of network where every node connects to others."},
+            {w: "METADATA", d: "Information that describes other data."},
+            {w: "MICROCONTROLLER", d: "Small computer on a single IC for simple tasks."},
+            {w: "MICROPHONE", d: "Sensor that converts sound into electrical signals."},
+            {w: "MICROSOLDERING", d: "Precision soldering on tiny motherboard parts."},
+            {w: "MICROUSB", d: "Legacy standard for mobile charging/data cables."},
+            {w: "MODEM", d: "Hardware used for network data transmission."},
+            {w: "MODULAR", d: "Design where parts can be easily swapped out."},
+            {w: "MOTHERBOARD", d: "Main PCB holding CPU, RAM, and IC chips."},
+            {w: "MP3", d: "Digital audio compression standard."},
+            {w: "MSP", d: "Managed Service Provider for IT infrastructure."},
+            {w: "MULTIMETER", d: "Tool used to measure Volts, Amps, and Ohms."},
+            {w: "MVC", d: "Model-View-Controller. Software design pattern."},
+            {w: "NAND", d: "Type of non-volatile flash storage memory."},
+            {w: "NATIVE APP", d: "Software built specifically for one OS platform."},
+            {w: "NETWORK", d: "Group of interconnected computers or devices."},
+            {w: "NFC", d: "Near Field Communication for contactless payments."},
+            {w: "NIC", d: "Network Interface Card. Hardware for network access."},
+            {w: "NO SERVICE", d: "State where phone cannot reach a cellular tower."},
+            {w: "NODE", d: "An individual point or device in a network."},
+            {w: "O-RING", d: "Seal used for water resistance in device ports."},
+            {w: "OBJECT", d: "An instance of a Class in OOP programming."},
+            {w: "OEM", d: "Original Equipment Manufacturer. Factory-spec parts."},
+            {w: "OFFSET", d: "Distance or value added to align data correctly."},
+            {w: "OHM", d: "Unit of electrical resistance in a circuit."},
+            {w: "OIS", d: "Optical Image Stabilization for steady cameras."},
+            {w: "OLED", d: "Organic LED. High-contrast screen with deep blacks."},
+            {w: "OOP", d: "Object-Oriented Programming (Java, C++, etc.)."},
+            {w: "OPEN SOURCE", d: "Software with publicly available source code."},
+            {w: "OPERATING SYSTEM", d: "Primary software controlling hardware (OS)."},
+            {w: "OPTICAL ZOOM", d: "Using lenses to magnify images without loss."},
+            {w: "OSCILLOSCOPE", d: "Tool for visualizing signal voltages over time."},
+            {w: "OTA", d: "Over-The-Air. Wireless software update method."},
+            {w: "OUTPUT", d: "Information generated by a computer for the user."},
+            {w: "OVERCLOCK", d: "Running hardware faster than original factory spec."},
+            {w: "OVERHEATING", d: "Excessive heat causing system throttling or damage."},
+            {w: "PACKET", d: "Small segment of data sent over a network."},
+            {w: "PARTITION", d: "A logical division of a storage drive."},
+            {w: "PASSIVE DEVICE", d: "Component that doesn't need power (Resistor)."},
+            {w: "PASSWORD", d: "Secret phrase used to grant access to a system."},
+            {w: "PCB", d: "Printed Circuit Board. Board for mounting parts."},
+            {w: "PETER", d: "Internal code for high-voltage motherboard testing."},
+            {w: "PHISHING", d: "Scam attempting to steal credentials via fake mail."},
+            {w: "PHILLIPS", d: "Common cross-head screwdriver type for tech."},
+            {w: "PIXEL", d: "The smallest unit of an image on a display."},
+            {w: "PLUG", d: "Male connector that inserts into a jack."},
+            {w: "POINTER", d: "Symbol on screen indicating mouse movement."},
+            {w: "PORT", d: "Interface for connecting external cables/devices."},
+            {w: "POWER BUTTON", d: "Physical switch to turn hardware on or off."},
+            {w: "POWER IC", d: "Chip that manages energy distribution on a board."},
+            {w: "PROGRAM", d: "A set of instructions to achieve a specific task."},
+            {w: "PROXIMITY", d: "Sensor that turns off screen during voice calls."},
+            {w: "PSU", d: "Power Supply Unit. Provides electricity to hardware."},
+            {w: "PWM", d: "Pulse Width Modulation for controlling brightness."},
+            {w: "PYLON", d: "Logic architecture used for high-speed bus lanes."},
+            {w: "Q-SYNC", d: "Display technology for matching refresh rates."},
+            {w: "QA", d: "Quality Assurance. Testing for bugs and defects."},
+            {w: "QUANTUM", d: "Experimental computing using subatomic particles."},
+            {w: "QUEUE", d: "Data structure where first-in is first-out (FIFO)."},
+            {w: "QUICK CHARGE", d: "High-voltage fast charging protocol."},
+            {w: "RADIATION", d: "EM energy emitted by wireless antennas."},
+            {w: "RAM", d: "Random Access Memory. Fast, temporary storage."},
+            {w: "RASTER", d: "Image format made of a grid of colored pixels."},
+            {w: "REBALL", d: "Replacing solder balls on a BGA integrated circuit."},
+            {w: "RECOVERY", d: "Special OS mode for flashing or factory resets."},
+            {w: "REFLOW", d: "Heating a board to repair broken solder joints."},
+            {w: "REFURBISHED", d: "Pre-owned device restored to like-new state."},
+            {w: "REGISTRY", d: "Database of system settings on Windows OS."},
+            {w: "RELATIONAL", d: "Database type using tables and keys."},
+            {w: "RESISTOR", d: "Component that limits electrical current flow."},
+            {w: "RESOLUTION", d: "The number of pixels displayed on a screen."},
+            {w: "RESTART", d: "Power cycling a device to refresh the system."},
+            {w: "RF", d: "Radio Frequency. Waves used for wireless data."},
+            {w: "RGB", d: "Color model using Red, Green, and Blue light."},
+            {w: "RMM", d: "Remote Monitoring and Management for IT."},
+            {w: "ROM", d: "Read-Only Memory. Permanent storage for firmware."},
+            {w: "ROOT", d: "Full administrative access on Android/Linux."},
+            {w: "ROUTER", d: "Device that directs traffic between networks."},
+            {w: "SAAS", d: "Software as a Service. Subscription-based web apps."},
+            {w: "SATA", d: "Legacy standard for connecting hard drives."},
+            {w: "SCRUM", d: "Agile framework for managing complex work."},
+            {w: "SDK", d: "Software Development Kit for building apps."},
+            {w: "SDLC", d: "Software Development Life Cycle phases."},
+            {w: "SECURE ENCLAVE", d: "Isolated chip for biometrics and encryption."},
+            {w: "SENSOR", d: "Hardware that detects physical inputs/changes."},
+            {w: "SERIAL", d: "Method of data transfer one bit at a time."},
+            {w: "SERVER", d: "Computer that provides services to clients."},
+            {w: "SHORT CIRCUIT", d: "Current flowing through an unintended path."},
+            {w: "SILICON", d: "Semiconductor material used to make microchips."},
+            {w: "SIM", d: "Subscriber Identity Module. Card for network ID."},
+            {w: "SITEMAP", d: "List of all pages on a website or web app."},
+            {w: "SMARTPHONE", d: "Mobile phone with an OS and advanced computing."},
+            {w: "SOC", d: "System on a Chip. All-in-one processor package."},
+            {w: "SOFTWARE", d: "Intangible instructions that tell hardware what to do."},
+            {w: "SOLDER", d: "Metal alloy melted to join electrical parts."},
+            {w: "SPEAKER", d: "Transducer that converts signals into audible sound."},
+            {w: "SSD", d: "Solid State Drive. Fast, durable data storage."},
+            {w: "STATIC", d: "Type checking performed at compile time in code."},
+            {w: "STRING", d: "Data type used for sequences of text characters."},
+            {w: "SUPERVISED", d: "AI training using labeled example data."},
+            {w: "SWIPING", d: "Common touch gesture for navigating mobile OS."},
+            {w: "SYNK", d: "Method of aligning data across multiple devices."},
+            {w: "SYSTEM BOARD", d: "Another name for the logic or motherboard."},
+            {w: "T-BONE", d: "JDT diagnostic tool for battery connector testing."},
+            {w: "TDD", d: "Test-Driven Development in software engineering."},
+            {w: "TELEMETRY", d: "Automated data collection from remote devices."},
+            {w: "TERABYTE", d: "1,024 Gigabytes of digital information."},
+            {w: "TERMINAL", d: "Text-based interface for system commands."},
+            {w: "TETHERING", d: "Sharing a phone's data connection via cable."},
+            {w: "THERMAL IMAGING", d: "Visualizing heat to find motherboard shorts."},
+            {w: "THERMAL PASTE", d: "Compound for improving heat sink conductivity."},
+            {w: "THROTTLING", d: "Slowing hardware speed to prevent overheating."},
+            {w: "THROUGH-HOLE", d: "Component mounting through holes in a PCB."},
+            {w: "TOUCHSCREEN", d: "Input display that senses finger contact."},
+            {w: "TP", d: "Touch Panel. The digitized layer of a screen."},
+            {w: "TRACING", d: "Following signal paths on a motherboard PCB."},
+            {w: "TRANSISTOR", d: "Semiconductor switch; the basis of all logic."},
+            {w: "TRI-WING", d: "Proprietary screwdriver used by Apple/Nintendo."},
+            {w: "TUPLE", d: "Ordered, immutable sequence of data in code."},
+            {w: "TWEEZERS", d: "Anti-static tool for handling tiny components."},
+            {w: "U-DISK", d: "External USB storage or bootable drive."},
+            {w: "UART", d: "Universal Asynchronous Receiver/Transmitter."},
+            {w: "UFS", d: "Universal Flash Storage. Modern fast phone storage."},
+            {w: "UI", d: "User Interface. What the person sees/touches."},
+            {w: "ULTRASONIC", d: "Cleaning method using high-frequency waves."},
+            {w: "UNDERCLOCK", d: "Reducing chip speed to save battery life."},
+            {w: "UNISON", d: "Aligning multiple hardware nodes to one clock."},
+            {w: "UNIVERSAL BUS", d: "USB standard for power and data cables."},
+            {w: "UNLOCK", d: "Removing carrier or security restrictions."},
+            {w: "UPTIME", d: "The time a system remains operational/online."},
+            {w: "USB", d: "Universal Serial Bus. Connection standard."},
+            {w: "UX", d: "User Experience. How a person feels using tech."},
+            {w: "V-REF", d: "Voltage Reference point for motherboard testing."},
+            {w: "VAPOR CHAMBER", d: "Advanced liquid-based cooling hardware."},
+            {w: "VARIABLE", d: "A named storage location for data in code."},
+            {w: "VBAT", d: "Main battery voltage line on a motherboard."},
+            {w: "VBUS", d: "Voltage line coming from the charging port."},
+            {w: "VECTOR", d: "Image format based on mathematical paths."},
+            {w: "VIBRATOR", d: "Motor that creates tactile haptic feedback."},
+            {w: "VIRTUAL MACHINE", d: "Software emulation of a full computer system."},
+            {w: "VOLTAGE", d: "Electrical pressure in a circuit (Volts)."},
+            {w: "VOLUME BUTTONS", d: "Physical keys to adjust audio output levels."},
+            {w: "VPN", d: "Virtual Private Network for secure browsing."},
+            {w: "W-PANE", d: "Screen architecture used in foldable hardware."},
+            {w: "WATER DAMAGE", d: "Corrosion caused by liquid entering hardware."},
+            {w: "WEBSITE", d: "Collection of web pages under one domain name."},
+            {w: "WI-FI", d: "Wireless networking protocol (802.11 standards)."},
+            {w: "WI-FI IC", d: "Chip controlling all wireless internet functions."},
+            {w: "WINDOW", d: "The visual frame where an app is displayed."},
+            {w: "WIREFRAME", d: "Blueprint layout for software user interfaces."},
+            {w: "WIRELESS CHARGE", d: "Power transfer via electromagnetic induction."},
+            {w: "WORM", d: "Malware that self-replicates across networks."},
+            {w: "X-RAY", d: "Inspection technique for hidden solder joints."},
+            {w: "XML", d: "Extensible Markup Language for data storage."},
+            {w: "Y-CABLE", d: "Adapter that splits one connection into two."},
+            {w: "Y-DRIVE", d: "Technical term for secondary vertical bus lanes."},
+            {w: "YELLOW SCREEN", d: "Display tint issue caused by age or glue heat."},
+            {w: "Z-HEIGHT", d: "The physical thickness of a mobile component."},
+            {w: "ZIF", d: "Zero Insertion Force connector for ribbon cables."},
+            {w: "ZIP", d: "Compressed file format to save storage space."}
+        ];
 
-    function loadEntries(filter = "") {
-        grid.innerHTML = '';
-        data.forEach(item => {
-            if (item.t.toLowerCase().includes(filter) || item.d.toLowerCase().includes(filter)) {
-                grid.innerHTML += `<div class="node"><div class="term">${item.t}</div><div class="def">${item.d}</div></div>`;
-            }
-        });
-    }
-
-    function handle(e) {
-        if (e.key === 'Enter') {
-            let val = e.target.value;
-            chat.innerHTML += `<div class="msg user" style="color:#333;">[USER] ${val}</div>`;
-            loadEntries(val.toLowerCase());
-            chat.innerHTML += `<div class="msg ai"><b>[DICT]</b> Definition found for: "${val}"</div>`;
-            e.target.value = '';
-            chat.scrollTop = chat.scrollHeight;
+        function render(data) {
+            const list = document.getElementById('dict-list');
+            list.innerHTML = data.map(item => `
+                <div class="entry">
+                    <div class="entry-word">${item.w}</div>
+                    <div class="entry-def">${item.d}</div>
+                </div>
+            `).join('');
+            document.getElementById('term-count').innerText = `TERMS_LOADED: ${data.length}`;
         }
-    }
-    loadEntries();
-</script>
+
+        function search() {
+            const query = document.getElementById('search-input').value.toUpperCase();
+            const filtered = JDT_DATABASE.filter(item => 
+                item.w.includes(query) || item.d.toUpperCase().includes(query)
+            );
+            render(filtered);
+        }
+
+        render(JDT_DATABASE);
+    </script>
 </body>
 </html>
