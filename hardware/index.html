@@ -1,56 +1,99 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>JDT // HARDWARE_OPS</title>
-    <style>
-        :root { --cyan: #00d2ff; --bg: #000; --panel: #0a0a0a; --border: #1a1a1a; --font: 'Courier New', monospace; }
-        * { box-sizing: border-box; }
-        body { margin: 0; background: var(--bg); color: #fff; font-family: var(--font); }
-        
-        /* STICKY NAV */
-        .nav-bar { position: sticky; top: 0; background: #000; width: 100%; display: flex; justify-content: center; gap: 15px; padding: 20px 0; border-bottom: 1px solid var(--border); z-index: 100; }
-        .nav-item { color: #444; text-decoration: none; font-size: 0.7rem; letter-spacing: 2px; font-weight: bold; text-transform: uppercase; }
-        
-        .container { padding: 30px 20px; max-width: 600px; margin: 0 auto; }
-        h2 { letter-spacing: 8px; text-align: center; margin-bottom: 40px; color: #fff; }
+<div class="pg-label">// HARDWARE_DEPT_v13</div>
 
-        /* ACTION CARDS */
-        .action-card { border: 1px solid var(--border); background: var(--panel); padding: 20px; border-left: 4px solid var(--cyan); margin-bottom: 15px; position: relative; }
-        .status-light { position: absolute; top: 15px; right: 15px; width: 6px; height: 6px; background: var(--cyan); border-radius: 50%; box-shadow: 0 0 8px var(--cyan); }
-        .action-title { color: var(--cyan); font-weight: 900; margin-bottom: 8px; font-size: 0.9rem; letter-spacing: 2px; }
-        .action-desc { color: #777; font-size: 0.75rem; line-height: 1.4; }
-    </style>
-</head>
-<body>
-    <nav class="nav-bar">
-        <a href="index.html" style="color:#fff; border:1px solid #333; padding:0 5px; text-decoration:none;">HOME</a>
-        <a href="dictionary.html" class="nav-item">DICT</a>
-        <a href="hardware.html" class="nav-item" style="color:var(--cyan)">HARD</a>
-        <a href="software.html" class="nav-item">SOFT</a>
-        <a href="ai.html" class="nav-item">AI</a>
-        <a href="tutorials.html" class="nav-item">TUTS</a>
-    </nav>
-
-    <div class="container">
-        <h2>HARDWARE_OPERATIONS</h2>
-        
-        <div class="action-card"><div class="status-light"></div><div class="action-title">01_VCC_MAIN_DIAG</div><div class="action-desc">Short-to-ground fault detection on main power rails using thermal imaging.</div></div>
-        <div class="action-card"><div class="status-light"></div><div class="action-title">02_IC_REBALLING</div><div class="action-desc">Precision replacement of BGA integrated circuits and chipsets.</div></div>
-        <div class="action-card"><div class="status-light"></div><div class="action-title">03_OLED_RESTORATION</div><div class="action-desc">Glass separation from OLED panels using heat plate methods.</div></div>
-        <div class="action-card"><div class="status-light"></div><div class="action-title">04_BATTERY_CALIB</div><div class="action-desc">Testing health and cycle counts for JDT-certified power cells.</div></div>
-        <div class="action-card"><div class="status-light"></div><div class="action-title">05_TRACE_REPAIR</div><div class="action-desc">Micro-soldering jumper wires to restore broken motherboard traces.</div></div>
-        <div class="action-card"><div class="status-light"></div><div class="action-title">06_CUSTOM_COOLING</div><div class="action-desc">Integrating vapor chambers and high-K pads for thermal management.</div></div>
-        <div class="action-card"><div class="status-light"></div><div class="action-title">07_RF_SIGNAL_FIX</div><div class="action-desc">Tuning internal antenna arrays for Wi-Fi 6E optimization.</div></div>
-        <div class="action-card"><div class="status-light"></div><div class="action-title">08_HAPTIC_TUNING</div><div class="action-desc">Adjustment and replacement of linear resonant actuators.</div></div>
-        <div class="action-card"><div class="status-light"></div><div class="action-title">09_PORT_FITTING</div><div class="action-desc">Installation of reinforced USB-C daughterboards.</div></div>
-        <div class="action-card"><div class="status-light"></div><div class="action-title">10_SENS_ARRAY_CAL</div><div class="action-desc">Calibrating LiDAR and FaceID depth-sensing modules.</div></div>
-        <div class="action-card"><div class="status-light"></div><div class="action-title">11_WATER_CLEANING</div><div class="action-desc">Ultrasonic logic board cleaning after liquid exposure.</div></div>
-        <div class="action-card"><div class="status-light"></div><div class="action-title">12_FRAME_ALIGN</div><div class="action-desc">Straightening titanium chassis to original factory specs.</div></div>
-        <div class="action-card"><div class="status-light"></div><div class="action-title">13_AUDIO_AMP_SWAP</div><div class="action-desc">Replacing blown audio codecs and internal stereo speakers.</div></div>
-        <div class="action-card"><div class="status-light"></div><div class="action-title">14_SSD_UPGRADE_BGA</div><div class="action-desc">Desoldering NAND chips for expanded physical storage.</div></div>
-        <div class="action-card"><div class="status-light"></div><div class="action-title">15_INPUT_REPAIR</div><div class="action-desc">Replacing mechanical volume rockers and power buttons.</div></div>
+<div class="section-label">> MODERN_ULTRA_SERIES [2023-2026]</div>
+<div class="box-grid">
+    <div class="box-card" style="border-top-color: #00ffaa;">
+        <h3>iP17_PRO_MAX_GEN6</h3>
+        <div class="price">$249.00</div>
+        <button class="order-btn" onclick="alert('iP17 Pro Max Module Added')">ORDER_KIT</button>
     </div>
-</body>
-</html>
+    <div class="box-card">
+        <h3>iP16_PRO_DISPLAY</h3>
+        <div class="price">$219.00</div>
+        <button class="order-btn" onclick="alert('iP16 Pro Module Added')">ORDER_KIT</button>
+    </div>
+    <div class="box-card" style="border-top-color: #fff;">
+        <h3>S26_ULTRA_CORE</h3>
+        <div class="price">$255.00</div>
+        <button class="order-btn" onclick="alert('S26 Ultra Module Added')">ORDER_KIT</button>
+    </div>
+    <div class="box-card" style="border-top-color: #fff;">
+        <h3>S25_ULTRA_DISP</h3>
+        <div class="price">$235.00</div>
+        <button class="order-btn" onclick="alert('S25 Ultra Module Added')">ORDER_KIT</button>
+    </div>
+</div>
+
+<div class="section-label" style="margin-top:40px;">> LEGACY_CLASSIC_SERIES [iP13-iP17]</div>
+<div class="box-grid">
+    <div class="box-card" style="border-top-color: #555;">
+        <h3>iP13_RETINA_BOX</h3>
+        <div class="price">$129.00</div>
+        <button class="order-btn" onclick="alert('iP13 Legacy Added')">ORDER_KIT</button>
+    </div>
+    <div class="box-card" style="border-top-color: #555;">
+        <h3>iP14_RETINA_BOX</h3>
+        <div class="price">$149.00</div>
+        <button class="order-btn" onclick="alert('iP14 Legacy Added')">ORDER_KIT</button>
+    </div>
+    <div class="box-card" style="border-top-color: #555;">
+        <h3>iP15_RETINA_BOX</h3>
+        <div class="price">$169.00</div>
+        <button class="order-btn" onclick="alert('iP15 Legacy Added')">ORDER_KIT</button>
+    </div>
+    <div class="box-card" style="border-top-color: #555;">
+        <h3>iP16_RETINA_BOX</h3>
+        <div class="price">$189.00</div>
+        <button class="order-btn" onclick="alert('iP16 Legacy Added')">ORDER_KIT</button>
+    </div>
+</div>
+
+<div class="pg-label" style="margin-top: 50px;">// CUSTOM_PC_BUILDER</div>
+<div class="pc-panel">
+    <div class="section-label" style="margin-top: 0; color: #444;">[ CHASSIS_SELECTION ]</div>
+    <select id="pc-case" class="terminal-select" onchange="updatePCBuild()">
+        <option value="0">-- SELECT CASE TYPE --</option>
+        <option value="180">STEALTH_MID_TOWER ($180)</option>
+        <option value="290">HYTE_Y70_PANO ($290)</option>
+        <option value="450">LAB_GRADE_OPEN_AIR ($450)</option>
+    </select>
+
+    <div class="section-label" style="color: #444;">[ THERMAL_MGMT ]</div>
+    <div class="opt-row">
+        <button class="opt-btn" onclick="setPCPart('cool', 60, this)">AIR_FLOW</button>
+        <button class="opt-btn" onclick="setPCPart('cool', 190, this)">360mm_AIO</button>
+        <button class="opt-btn" onclick="setPCPart('cool', 500, this)">HARD_TUBING</button>
+    </div>
+
+    <div style="border-top: 1px solid #111; padding-top: 20px; display: flex; justify-content: space-between; align-items: center;">
+        <span style="font-size: 0.6rem; letter-spacing: 1px;">TOTAL_BUILD_EST:</span>
+        <span id="pc-total-display" style="color: var(--pink); font-weight: 900; font-size: 1.1rem;">$0.00</span>
+    </div>
+    <button class="order-btn" style="margin-top: 20px; background: var(--pink); color: #fff;" onclick="alert('PC Quote Sent to J&D Admin')">INITIATE_BUILD</button>
+</div>
+
+<style>
+    .box-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .box-card { background: var(--panel); border: 1px solid var(--border); padding: 12px; border-top: 2px solid var(--cyan); }
+    .box-card h3 { font-size: 0.5rem; margin: 0 0 8px; height: 25px; color: #eee; }
+    .price { color: var(--cyan); font-weight: 900; font-size: 0.8rem; margin-bottom: 12px; }
+    
+    .pc-panel { background: var(--panel); border: 1px solid var(--border); padding: 20px; border-left: 3px solid var(--pink); }
+    .terminal-select { width: 100%; background: #050505; border: 1px solid #222; color: #fff; padding: 12px; font-family: inherit; font-size: 0.6rem; margin-bottom: 20px; }
+    .opt-row { display: flex; gap: 8px; margin-bottom: 20px; }
+    .opt-btn { flex: 1; background: transparent; border: 1px solid #222; color: #444; padding: 10px; font-size: 0.45rem; font-family: inherit; cursor: pointer; }
+    .opt-btn.active { border-color: var(--pink); color: var(--pink); background: rgba(255, 0, 85, 0.05); }
+    
+    .order-btn { width: 100%; background: #fff; border: none; padding: 10px; font-family: inherit; font-size: 0.5rem; font-weight: 900; cursor: pointer; }
+</style>
+
+<script>
+    let hwCase = 0; let hwCool = 0;
+    function updatePCBuild() { hwCase = parseInt(document.getElementById('pc-case').value) || 0; renderTotal(); }
+    function setPCPart(type, price, btn) {
+        hwCool = price;
+        btn.parentElement.querySelectorAll('.opt-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active'); renderTotal();
+    }
+    function renderTotal() { document.getElementById('pc-total-display').innerText = '$' + (hwCase + hwCool) + '.00'; }
+</script>
